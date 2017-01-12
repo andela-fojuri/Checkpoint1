@@ -1,0 +1,30 @@
+{
+  "name": "inverted-index",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gottsohn/inverted-index.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gottsohn/inverted-index/issues"
+  },
+  "homepage": "https://github.com/gottsohn/inverted-index#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.6",
+    "gulp": "^3.9.1",
+    "gulp-jasmine": "^2.4.2",
+    "gulp-jasmine-browser": "^1.7.1",
+    "gulp-sass": "^3.1.0"
+  },
+  "jshintConfig": {
+    "esversion": 6,
+    "eqeqeq": true
+  }
+}

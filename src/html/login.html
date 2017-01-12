@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+	  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	  <link rel="stylesheet" type="text/css" href="css/style.css">
+
+  <head>
+    <title> Inverted Index</title>
+    <script type="text/javascript">
+
+    	var app = angular.module('myApp', ['ngMaterial','ngMessages']);
+      app.controller('appCtrl', function($scope){
+        
+      });
+      
+    </script>
+  </head>
+  
+  <body>
+   
+  <div ng-app = "myApp" ng-controller="appCtrl" ng-cloak = "" class="navBardemoBasicUsage">    
+    <header >
+      <md-content class="md-padding" >
+        <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+        <div layout="row" layout-align ="left right">
+          <div flex = "90"> <a href="index.html" ><md-icon flex = "90" md-svg-src="img/ic_home_black_24px.svg" class="name"></md-icon></a> </div>
+          <a href="" flex = "7">Sign Out</a>
+        </div> 
+        </md-nav-bar>
+      </md-content>
+  
+    </header>
+
+      
+  <div layout="row" layout-align ="center center">
+  	<form novalidate class="simple-form">
+    <h1>Kindly enter your details</h1>
+    <md-input-container class="md-icon-float md-block">
+      <!-- Use floating label instead of placeholder -->
+      <label>Username</label>
+      <md-icon md-svg-src="img/ic_person_black_24px.svg" class="name"></md-icon>
+      <input ng-model="user.name" type="text" id = "username">
+    </md-input-container>
+    <md-input-container class="md-icon-float md-block">
+      <!-- Use floating label instead of placeholder -->
+      <label>Password</label>
+      <md-icon md-svg-src="img/ic_security_black_24px.svg" class="name" ></md-icon>
+      <input ng-model="user.password" type="password" id = "password">
+    </md-input-container>
+    
+    <md-button class="btn1 md-primary" onclick = "">Sign In</md-button>
+  </form>
+  </div>
+	  
+  
+  </div>

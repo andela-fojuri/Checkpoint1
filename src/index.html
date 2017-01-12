@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+	  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	  <link rel="stylesheet" type="" href="css/styles.css">
+
+  <head>
+    <title> Inverted Index</title>
+    <script type="text/javascript">
+    	angular.module('myApp', ['ngMaterial']);
+    </script>
+  </head>
+  
+  <body>
+  
+  
+  <div ng-app = "myApp" >
+  <header >
+      <md-content class="md-padding" >
+        <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+        <div layout="row" layout-align ="left right">
+          <div flex = "90"> <a href="index.html" ><md-icon flex = "90" md-svg-src="img/ic_home_black_24px.svg" class="name"></md-icon></a> </div>
+          <a href="html/login.html" flex = "7">Sign In</a>
+        </div> 
+        </md-nav-bar>
+      </md-content>
+  
+    </header>
+  <div layout="row" layout-align ="center center">
+  	<div >
+	  	<form >
+	  		First Name: <input type="text" ng-model="firstname">
+	  	</form>
+	  </div>
+	  <div >
+	  	<h1>You entered: {{firstname}}</h1>
+	  </div>
+  </div>
+	  
+  
+  </div>
+  
+ 
+    
+   
+  </body>
+</html>

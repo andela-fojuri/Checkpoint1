@@ -4,5 +4,25 @@
 }
 
 body {
-	background: blue;
+	background: white;
+}
+header > md-content {
+    background: black;
+}
+label{
+  color: grey;
+}
+
+
+.btn1 {
+  color : rgb(49, 46, 46);
+  background-color: lavender;
+  border-radius: 10px 0 0 10px;
+  font-size: 16px;
+  color: white;
+}
+.navBardemoBasicUsage md-content .ext-content {
+  padding: 50px;
+  margin: 20px;
+  background-color: #FFF2E0; 
 }

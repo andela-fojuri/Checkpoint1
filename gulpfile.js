@@ -43,18 +43,6 @@ gulp.task('jasmineBrowser', function(){
 	
 });
 
-gulp.task('webpack', function(callback) {
-    // run webpack
-    webpack({
-        // configuration
-    }, function(err, stats) {
-        if(err) throw new gutil.PluginError("webpack", err);
-        gutil.log("[webpack]", stats.toString({
-            // output options
-        }));
-        callback();
-    });
-});
 
 gulp.task('jasmineBrowser2', jasmineBrowser2({
 
@@ -73,11 +61,11 @@ gulp.task('jasmineBrowser2', jasmineBrowser2({
 
 
 
-gulp.task('watch',['browserSync', 'sass', 'jasmine'], function(){
+gulp.task('watch',['browserSync', 'sass'], function(){
 	var filesForTest = ['src/js/**/*.js','jasmine/spec/**/*.js'];
   gulp.watch('src/scss/**/*.scss', ['sass']); 
-  gulp.watch('src/html/**/*.html', browserSync.reload); 
-  gulp.watch('src/js/**/*.js', browserSync.reload);
+  gulp.watch('src/**/*.html', browserSync.reload); 
+  gulp.watch('src/**/*.js', browserSync.reload);
   gulp.watch(filesForTest, browserSync.reload);
 
   // Other watchers

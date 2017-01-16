@@ -3,19 +3,53 @@
 //require('jasmine/books.json');
 
  class Index {
-
 	constructor(){
-		this.path = '../jasmine/books.json';
+		this.path = '';
 		this.index = {};
 	}
 
+	search(term){
+		const result = {};
+		if (typeof term === typeof []) {
+     		 term = term.join();
+    	}
+    
+    	term = term.toLowerCase();
+    	term = term.match(/\w+/g);
+    	var count = 0;
+		for (var key in this.index) {
+			if(key === "Terms"){
+				var arr = this.index[key];
+				for (var i = 0; i < arr.length; i++) {
+					if(term === arr[i]){
+						result.Terms = term;
+					}
+				}
+			}
+			if(key === "Text"){
+				var title = this.index[key];
+				console.log(title);
+				for(var key2 in title){	
+					var arr2 = title[key2];
+					for(var j = 0; j < arr2.length; j++) {
+						if(term === arr2[j]){
+							count++;
+							result.Text = key2;
+						}
+					}
+				}	
+				
+			}
+
+		}
+		console.log(result);
+	}
+
 	createIndex(filePath){
-		filePath = this.path;
+		var result = [];
+		var obj = {};
 		var fs = require('fs');
-		fs.readFile(filePath, function (err, data) {
-		   if (err) {
-		       return console.error(err);
-		   }
+		var data = fs.readFileSync(filePath);
 		   var Arr = JSON.parse(data);
 		   var text = "";
 		   var title = "";
@@ -34,43 +68,55 @@
 		   		splittedText.push(text.toLowerCase().match(/\w+/g));
 		   		splittedTitle.push(title);	   		
 		   }
-
-		   var obj = {};
+		   
 		   for(var t = 0; t < splittedTitle.length ; t++){
 		   		obj[splittedTitle[t]] = splittedText[t];
-		   		//if(this.index.obj[t] !== "undefined")
-		   		//this.index[obj[t]] = splittedText[t];
 		   	
 		   }
-		   console.log(obj);
 		  var merge = [];
 		  	for(var g = 0; g < splittedText.length-1; g++){
 		  		 merge = splittedText[g].concat(splittedText[g+1]);
 		  }
-
-		
-		  console.log(merge);
-		  console.log(removeDuplicates(merge));
-		 // this.index.Term = removeDuplicates(merge);
-		//  console.log(this.index);
-		  
-		});
+		   result = removeDuplicates(merge).sort();	
+		this.index.Terms = result;
+		this.index.Text = obj;
+		//console.log(this.index);
+		return this.index;
 		
 	}
 
 	verify(filePath){
-		filePath = this.path;
 		var fs = require('fs');
 		fs.readFile(filePath, function (err, data) {
-		   if (err) {
-		       return console.error(err);
-		   }
-		   if(JSON.parse(data)  === " "){
-		   	return "File empty";
-		   }
-		   else {
-		   	return "File not empty";
-		   }
+			try{	
+				//console.log(JSON.parse(data));
+				if(JSON.parse(data)  === ""){
+					console.log("File empty");
+		  			//return "File empty";
+		  		}
+		  	//	else{
+		  			let check = false;
+		  			const file = JSON.parse(data);
+		  		
+		  			file.forEach((element)=> { 
+    					if (element.text === "undefined" || element.title === "undefined") {
+    						check = true;
+    						
+    					}
+					});
+
+					if(check){
+						console.log("Invalid Content");
+					}
+		  	//	}
+				
+		   			
+			}catch(e){
+
+				return console.error("Invalid JSON file");
+			}
+			
+		   
 		});
 
 	}
@@ -91,9 +137,12 @@ function removeDuplicates(array){
 	}
 
 var c = new Index();
-c.createIndex('jasmine/books.json');
-c.verify();
-//c.createIndex2('jasmine/books.json');
+c.createIndex('../jasmine/books.json');
+c.search("alice");
+//c.verify('../jasmine/testFiles/wrongFile.txt');
+//c.verify('../jasmine/testFiles/invalid.json');
+//c.verify('../jasmine/testFiles/empty.json');
+//c.verify('../jasmine/books.json');
 
 
 

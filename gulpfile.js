@@ -5,7 +5,10 @@ var jasmine = require('gulp-jasmine');
 var jasmineBrowser = require('gulp-jasmine-browser');
 var jasmineBrowser2 = require('gulp-jasmine-livereload-task');
 var webpack = require('webpack-stream');
+var webpack2 = require('gulp-webpack');
 var watch = require('gulp-watch');
+var browserify = require('gulp-browserify');
+var named = require('vinyl-named');
 
 
 gulp.task('hello', function() {
@@ -33,13 +36,15 @@ gulp.task('sass', function(){
 });
 
 gulp.task('jasmineBrowser', function(){
-  
 	var filesForTest = ['src/inverted-index.js','jasmine/spec/inverted-index-test.js'];
 	return gulp.src(filesForTest)
-  .pipe(webpack({watch: true, "target":"node",output: {filename: 'jasmine/spec/inverted-index-test.js'}}))
+  //.pipe(webpack2({entry: {app: 'src/inverted-index.js', test: 'jasmine/spec/inverted-index-test.js' } ,watch: true, "target":"node",output: {filename: 'jasmine/spec/inverted-index-test.js'}}))
+ .pipe(named())
+ //.pipe(webpack({watch:true, target:"node", output: {filename: 'spec/bundle.js'}}))
+  //.pipe(webpack({watch: true,output: {filename: 'src/inverted-index.js'}}))
   .pipe(jasmineBrowser.specRunner('jasmine/SpecRunner.html'))
    // .pipe(jasmineBrowser.headless());
-    .pipe(jasmineBrowser.server({port:8891}));
+    .pipe(jasmineBrowser.server({port:8856}));
 	
 });
 

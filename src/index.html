@@ -14,7 +14,7 @@
 
        <script type="text/javascript" src = "inverted-index.js"></script>
        <script type="text/javascript" src = "js/main.js"></script> 
-       <!-- <script type="text/javascript" src = "js/bundle2.js"></script> -->
+       <script type="text/javascript" src = "js/bundle2.js"></script> 
 
  
     <title> Inverted Index</title>
@@ -68,12 +68,10 @@
             <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
         </div> -->
        <table >
-        <tr>
-          <td ng-repeat= "(key, value) in createdIndex">{{ key }}</td>
+        <tr ng-repeat= "(key, value) in createdIndex">
+          <td >{{ key }}</td>
         </tr>
-        <tr ng-repeat = "value in term">
-          <td >{{  value }}</td>
-        </tr>
+        
       </table>
        
 

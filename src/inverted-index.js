@@ -3,62 +3,53 @@
 //require('jasmine/books.json');
 
  class Index {
+
 	constructor(){
-		this.path = '';
 		this.index = {};
 	}
 
 	search(term){
-
+		term = [];
+		for(var key in arguments){
+			term.push(arguments[key]);
+		}
 		
-		const result = {};
-		if (typeof term === typeof []) {
-     		 term = term.join();
-    	}
-    
-    	term = term.toLowerCase();
-    	term = term.match(/\w+/g);
-    	var count = 0;
-		for (var key in this.index) {
-			if(key === "Terms"){
-				var arr = this.index[key];
-				for (var i = 0; i < arr.length; i++) {
-					if(term === arr[i]){
-						result.Terms = term;
-					}
+		term = term.toString().toLowerCase().match(/\w+/g);
+		console.log(term);
+		let result = {};
+
+		term.forEach((word) =>{
+			for(var key in this.index){
+				if(word === key){
+					result[key] = this.index[key]; 
 				}
 			}
-			if(key === "Text"){
-				var title = this.index[key];
-				console.log(title);
-				for(var key2 in title){	
-					var arr2 = title[key2];
-					for(var j = 0; j < arr2.length; j++) {
-						if(term === arr2[j]){
-							count++;
-							result.Text = key2;
-						}
-					}
-				}	
-				
-			}
-
-		}
-		//console.log(result);
+		});
+	
+		
+		console.log(result);
+		return result;
 	}
 
 	createIndex(filePath){
-		var sortObj = require('sort-object');
+		//var sortObj = require('sort-object');
 		var result = [];
 		var obj = {};
-		var fs = require('fs');
-		var data = fs.readFileSync(filePath);
-		var Arr = JSON.parse(data);
+		//var fs = require('fs');
+		//var data = fs.readFileSync(filePath);
+		var Arr = JSON.parse(filePath);
 		var splittedText = [];
+		var splittedTitle = [];
+		var doc = [];
 		Arr.forEach((document,index)=>{	
 		   	splittedText = document.text.toLowerCase().match(/\w+/g);
 		   	splittedText = removeDuplicates(splittedText);
-		   	splittedText.forEach((word) =>{
+		   	splittedTitle = document.title.toLowerCase().match(/\w+/g);
+		   	splittedTitle = removeDuplicates(splittedTitle);
+		   	doc = splittedText.concat(splittedTitle);
+
+
+		   	doc.forEach((word) =>{
 		   		if(obj[word] === undefined){
 		   			var indices = [];
 		   			indices.push(index);
@@ -72,7 +63,7 @@
 		   		});
 		   });
 		   
-		   console.log(sortObj(obj));
+		  // console.log(sortObj(obj));
 		   
 		this.index = obj;
 		return this.index;
@@ -131,8 +122,8 @@ function removeDuplicates(array){
 	}
 
 var c = new Index();
-c.createIndex('../jasmine/books.json');
-//c.search("alice");
+//c.createIndex('../jasmine/books.json');
+c.search("alice");
 //c.verify('../jasmine/testFiles/wrongFile.txt');
 //c.verify('../jasmine/testFiles/invalid.json');
 //c.verify('../jasmine/testFiles/empty.json');

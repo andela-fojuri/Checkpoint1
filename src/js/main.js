@@ -34,7 +34,7 @@ var app = angular.module('myApp', ['ngMaterial', 'angularModalService','ngMessag
                       //alert("File Uploaded");
                       $scope.createdIndex =  invertedIndex.createIndex($scope.contents);
                       $scope.title = $scope.createdIndex.Text;
-                      $scope.term = $scope.createdIndex.Terms;
+                     
 
 
 

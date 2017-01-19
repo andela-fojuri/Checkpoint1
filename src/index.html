@@ -7,13 +7,16 @@
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
       <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+      <script type="text/javascript" src="angular-modal-service/dst/angular-modal-service.min.js"></script>
       <script src="http://ngmaterial.assets.s3.amazonaws.com/svg-assets-cache.js"></script>
 	  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	  <link rel="stylesheet" type="" href="css/styles.css">
+
        <script type="text/javascript" src = "inverted-index.js"></script>
        <script type="text/javascript" src = "js/main.js"></script> 
+       <!-- <script type="text/javascript" src = "js/bundle2.js"></script> -->
 
-  <head>
+ 
     <title> Inverted Index</title>
 
     <script type="text/javascript">
@@ -22,9 +25,9 @@
       
     </script>
 
-    
-  </head>
-  <div ng-app = "myApp" ng-controller="appCtrl" ng-cloak = "" class="navBardemoBasicUsage">    
+    <body ng-app = "myApp" ng-controller='appCtrl' class="navBardemoBasicUsage">
+ 
+  <div>    
     <header>
       <md-content class="md-padding" >
         <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
@@ -36,34 +39,45 @@
       </md-content>
   
     </header>
-  
-  <body>
-  
-  <div style="visibility: hidden">
-  <div class="md-dialog-container" id="myStaticDialog">
-    <md-dialog>
-      This is a pre-rendered dialog.
-      <input type = "file" file-model = "myFile" ng-click="showTabDialog($event)"/>
-    </md-dialog>
-  </div>
-</div>
-  
-  <div layout="row" layout-align ="left center">
-        <form novalidate class="simple-form">
-        <div><h1>Select A file to Invert</h1></div>
 
-         <div> 
-         <label> 1.</label>
-         <div> <button ng-click = "showPrompt($event)"> Select</button></div>
-          <input type = "file" file-model = "myFile" ng-click="showTabDialog($event)"/>
+<div><h1>Select A file to Invert</h1></div>
+    <div> <md-button ng-click = "showPrompt()"> Select</md-button>
+
+    </div>
+
+<input type = "file" file-model = "myFile" id = "upload" accept=".json" ng-click="isUploaded = false" multiple/>
+  <button class="btn btn-default" ng-click = "uploader()">Upload File</button>
+  <button class="btn btn-default" ng-click = "uploader()">Create Index</button>
+ 
+   
+        
+          <!-- <div class = "md-dialog modal-lg">
+            <div class = "md-dialog-content"> 
+              <div class = "md-dialog-actions"> 
+                <div class = "md-button" ng-click="closeDialog()" class="md-primary">
+                 <input type = "file" file-model = "myFile" id = "upload" accept=".json" ng-click="isUploaded = false" multiple/>
+                 <button class="btn btn-default" ng-click = "uploader()">Upload File</button>
+                 
+              </div>
+            </div>
+           </div>
+         </div>
         </div>
-         <div><button ng-click = "promptSomething()">Upload </button></div>
-         
-         </form>
-  </div>
-	  
-  
-  </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+        </div> -->
+       <table >
+        <tr>
+          <td ng-repeat= "(key, value) in createdIndex">{{ key }}</td>
+        </tr>
+        <tr ng-repeat = "value in term">
+          <td >{{  value }}</td>
+        </tr>
+      </table>
+       
+
+
   
  
     

@@ -1,57 +1,65 @@
-var app = angular.module('myApp', ['ngMaterial','ngMessages','material.svgAssetsCache']);
-     app.controller('appCtrl', function($scope, $mdDialog){
-        $scope.status = '  ';
-        $scope.customFullscreen = false;
 
-        $scope.showPrompt = function(ev) {
-            // Appending dialog to document.body to cover sidenav in docs app
-            $mdDialog.show({ 
-              template: '<md-dialog aria-label="List dialog">' +
-           '  <md-dialog-content>'+
-           '    <md-list>'+
-           '      <md-list-item ng-repeat="item in items">'+
-           '       <p>Number {{item}}</p>' +
-           '      '+
-           '    </md-list-item></md-list>'+
-           '  </md-dialog-content>' +
-           '  <md-dialog-actions>' +
-           '    <md-button ng-click="closeDialog()" class="md-primary">' +
-           '<input type = "file" file-model = "myFile" id = "upload" accept=".json" ng-click="isUploaded = false" multiple/>'+
-           '<button class="btn btn-default" ng-click = "uploader()">Upload File</button>'+
-           '      Close Dialog' +
-           '    </md-button>' +
-           '  </md-dialog-actions>' +
-           '</md-dialog>',
+var app = angular.module('myApp', ['ngMaterial', 'angularModalService','ngMessages','material.svgAssetsCache']);
+     app.controller('appCtrl', [ '$scope', 'ModalService', ($scope, ModalService) =>{
+    //  app.controller('appCtrl', ($scope) =>{
+      const  invertedIndex = new Index();
+        $scope.showPrompt = ()=> { 
+              ModalService.showModal({ 
+              template: "myModalContent.html",
               parent: angular.element(document.body),
-              targetEvent: ev,
-              clickOutsideToClose:true,
-              fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+              controller:'appCtrl',
             })
-            .then(function(answer) {
-              $scope.status = 'You said the information was "' + answer + '".';
-            }, function() {
-              $scope.status = 'You cancelled the dialog.';
+            .then((modal)=> {
+              modal.element.modal();
+            modal.close.then(function(result) {
+                $scope.message = "You said " + result;
             });
+          });
           };
 
-          $scope.uploader = () => {
-            $scope.isUploaded = false;
-            $scope.index = new Index();
-            const file = document.getElementById('upload').files[0];
-            const reader = new FileReader();
-            reader.readAsText(file);
 
-            reader.onload = (event) => {
-              $scope.book = (event.target.result);
-              const fileValidation = $scope.index.verify($scope.book);
-              validFile = fileValidation[0];
-              if (validFile) {
-                $scope.titles = titlesList($scope.index.vbook.length);
-                $scope.length = numToArray($scope.index.vbook.length);
-              } else {
-                alert(fileValidation[1]);
-              }
-            };
-            $scope.isUploaded = true;
-  };
-      });
+          $scope.uploader = () => {
+            if (window.File && window.FileReader && window.FileList && window.Blob) { 
+              $scope.f = document.getElementById('upload').value;
+              $scope.file = document.getElementById('upload').files[0];  
+
+
+              if($scope.file){   
+                var r = new FileReader();
+                r.onload = (e)=>{
+
+                  $scope.contents = e.target.result;
+                  //alert("Got the file.n"+"name: " + $scope.file.name + "n" +"type: " + $scope.file.type + "n" +"size: " + $scope.file.size + " bytesn"+ "starts with: " + $scope.contents);
+                  if($scope.file.type.includes("json")){
+                      //alert("File Uploaded");
+                      $scope.createdIndex =  invertedIndex.createIndex($scope.contents);
+                      $scope.title = $scope.createdIndex.Text;
+                      $scope.term = $scope.createdIndex.Terms;
+
+
+
+                     // console.log("scope is "+ $scope.createdIndex);
+                  }
+                  else{
+                    alert("Kindly select a valid JSON file");
+                  }
+              };
+              r.readAsText($scope.file);
+                  
+            }
+            else{
+              alert("Failed to load file");
+            }
+
+          }else{
+            alert('The File APIs are not fully supported by your browser.');
+          }
+            
+      };
+
+
+            
+           // $scope.isUploaded = true;
+  
+}]);
+

@@ -9,6 +9,8 @@
 	}
 
 	search(term){
+
+		
 		const result = {};
 		if (typeof term === typeof []) {
      		 term = term.join();
@@ -42,45 +44,37 @@
 			}
 
 		}
-		console.log(result);
+		//console.log(result);
 	}
 
 	createIndex(filePath){
+		var sortObj = require('sort-object');
 		var result = [];
 		var obj = {};
 		var fs = require('fs');
 		var data = fs.readFileSync(filePath);
-		   var Arr = JSON.parse(data);
-		   var text = "";
-		   var title = "";
-		  	var splittedText = [];
-		  	var splittedTitle = [];
-		   var b;
-		   for(var i = 0; i < Arr.length; i++){
-		   		for(var key in Arr[i]){
-		   			if(key === "text"){
-		   				text = Arr[i][key] ;
-		   			}
-		   			if(key === "title"){
-		   				title  = Arr[i][key];
-		   			}			  				 			
+		var Arr = JSON.parse(data);
+		var splittedText = [];
+		Arr.forEach((document,index)=>{	
+		   	splittedText = document.text.toLowerCase().match(/\w+/g);
+		   	splittedText = removeDuplicates(splittedText);
+		   	splittedText.forEach((word) =>{
+		   		if(obj[word] === undefined){
+		   			var indices = [];
+		   			indices.push(index);
+		   			obj[word] = indices;
 		   		}
-		   		splittedText.push(text.toLowerCase().match(/\w+/g));
-		   		splittedTitle.push(title);	   		
-		   }
+		   			else{
+		   				obj[word].push(index);
+
+		   			}
+		   			
+		   		});
+		   });
 		   
-		   for(var t = 0; t < splittedTitle.length ; t++){
-		   		obj[splittedTitle[t]] = splittedText[t];
-		   	
-		   }
-		  var merge = [];
-		  	for(var g = 0; g < splittedText.length-1; g++){
-		  		 merge = splittedText[g].concat(splittedText[g+1]);
-		  }
-		   result = removeDuplicates(merge).sort();	
-		this.index.Terms = result;
-		this.index.Text = obj;
-		//console.log(this.index);
+		   console.log(sortObj(obj));
+		   
+		this.index = obj;
 		return this.index;
 		
 	}
@@ -138,7 +132,7 @@ function removeDuplicates(array){
 
 var c = new Index();
 c.createIndex('../jasmine/books.json');
-c.search("alice");
+//c.search("alice");
 //c.verify('../jasmine/testFiles/wrongFile.txt');
 //c.verify('../jasmine/testFiles/invalid.json');
 //c.verify('../jasmine/testFiles/empty.json');

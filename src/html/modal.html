@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+        <html>
+       <script src="https://code.angularjs.org/1.4.9/angular.min.js"></script>
+<script src="https://rawgit.com/dwmkerr/angular-modal-service/master/dst/angular-modal-service.js"></script>
+  <script type="text/ng-template" id="myModalContent.html"> 
+        <div class="modal fade">
+            <h3 class="modal-title" id="modal-title">I'm a modal!</h3>
+        </div>
+          <div class = "modal-dialog modal-lg">
+            <div class = "modal-content"> 
+              <div class = "modal-dialog-actions"> 
+                <div class = "modal-button" ng-click="closeDialog()" class="md-primary">
+                 <input type = "file" file-model = "myFile" id = "upload" accept=".json" ng-click="isUploaded = false" multiple/>
+                 <button class="btn btn-default" ng-click = "uploader()">Upload File</button>
+                 
+              </div>
+            </div>
+           </div>
+         </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+        </div>
+       
+    
+        
+         
+        </html>
+
+        

@@ -32,8 +32,8 @@ gulp.task('bundle-files', function() {
 
 gulp.task('bundle-files2', function() {
   gulp.src("./jasmine/spec/inverted-index-test.js")
-    .pipe(browserify({}))
-    .pipe(gulp.dest('./jasmine/build'));
+    .pipe(webpack({watch: true}))
+    .pipe(gulp.dest('jasmine/build/'));
 });
 
 gulp.task('sass', function(){
@@ -47,31 +47,26 @@ gulp.task('sass', function(){
     
 });
 
-gulp.task('jasmineBrowser', function(){
-	var filesForTest = ['./jasmine/spec/inverted-index-test.js'];
+gulp.task('jasmineBrowser',['bundle-files2'] ,function(){
+	var filesForTest = ['jasmine/build/b.js/9d27723372feb0f63a9e.js','src/inverted-index.js'];
 	return gulp.src(filesForTest) 
-  .pipe(webpack({watch: true, target:"node",output: {filename: './jasmine/build'}}))
- //.pipe(watch(filesForTest, ['bundle-files2']))
- //.pipe(webpack2({entry: {app: 'src/inverted-index.js', test: 'jasmine/spec/inverted-index-test.js' } ,watch: true, "target":"node",output: {filename: 'jasmine/spec/inverted-index-test.js'}}))
- //.pipe(webpack({watch:true, target:"node", output: {filename: 'spec/bundle.js'}}))
-  //.pipe(webpack({watch: true,output: {filename: 'src/inverted-index.js'}}))
-  .pipe(jasmineBrowser.specRunner('./jasmine/SpecRunner.html'))
+ // .pipe(webpack({watch: true,output: {filename: 'jasmine/build'}}))
+  .pipe(jasmineBrowser.specRunner('jasmine/SpecRunner.html'))
   .pipe(jasmineBrowser.server({port:8857}));
 	
 });
 
 
 gulp.task('jasmineBrowser2',['bundle-files'], jasmineBrowser2({
-    files: ['src/build/inverted-index.js','jasmine/spec/inverted-index-test.js'],
+    files: ['./src/build/inverted-index.js','./jasmine/spec/inverted-index-test.js'],
     watch: {
         options: {
-            debounceTimeout: 1000, //The number of milliseconds to debounce. 
+            debounceTimeout: 900, //The number of milliseconds to debounce. 
             debounceImmediate: true //This option when set will issue a callback on the first event. 
         },
     },
     livereload: 35751,
     
-
 }));
 
 

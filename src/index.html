@@ -24,25 +24,33 @@
                         <div flex="90">
                             <label> INVERTED INDEX</label>
                         </div>
-                        <a href="" flex="7">Sign Out</a>
+                       
                     </div>
                 </md-nav-bar>
             </md-content>
         </header>
-
     </div>
-    <div class="jumbotron row justify-content-md-center col col-md-6">
-        <div><label>Select A file to Invert</label></div>
-        <div>
+
+    <div class = "row container" >
+        <div class="col-md-5" id = "i">
+            <h2>Choose A file </h2>  
+            <div class = "row" id = "space">  
+                <div class = "col-md-8"><input type="file" file-model="myFile" id="upload" accept=".json" ng-click="isUploaded = false" multiple /></div>
+                <div class="col-md-3"><button class="btn btn-default btn-primary" ng-click="uploader(); displayDiv();">Upload File</button></div>
+                <div id = "book"></div>
+            </div>
+            <div class="row top-buffer" style="display:none;" id = "crt">
+               
+                   <button class="btn btn-default" ng-click="create()">Create Index</button>
+                    <input type="text" id = "term" placeholder="Search for..." >
+                    <button class="btn btn-default " ng-click="search()"> go  </button>
+              
+            </div>
+      </div>  
+    <!--<div class = "md-dialog modal-lg">
+            <div>
             <md-button ng-click="showPrompt()"> Select</md-button>
         </div>
-        <input type="file" file-model="myFile" id="upload" accept=".json" ng-click="isUploaded = false" multiple />
-        <button class="btn btn-default" ng-click="uploader()">Upload File</button>
-        <button class="btn btn-default" ng-click="create()">Create Index</button>
-        <input type="text" id = "term" >
-        <button class="btn btn-default" ng-click="search()"> search  </button>
-    </div>
-        <!-- <div class = "md-dialog modal-lg">
             <div class = "md-dialog-content"> 
               <div class = "md-dialog-actions"> 
                 <div class = "md-button" ng-click="closeDialog()" class="md-primary">
@@ -57,24 +65,25 @@
         <div class="modal-footer">
             <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
             <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
-        </div> -->
-        <table class = "table">
-            <thead>
-                <th> Term </th>
-                <th ng-repeat = "key in count">     
-                    {{key}}
-                </th>      
-            </thead>
+        </div>-->
+        <div class = " col-md-7">
+            <table class = "col-md-6 table jumbotron table-hover table-responsive ">
+                <thead>
+                    <th ng-if= "count.length > 0"> Term </th>
+                    <th ng-repeat = "key in count">{{"Doc" + key}}</th>      
+                </thead>
 
-            <tr ng-repeat="(key,value) in createdIndex track by $index">
-                <td>{{ key }} - {{ value }}</td>
-                <td ng-repeat="book in count">
-                    <!-- <span >{{ value.includes(book) ? 'Yes' : 'No' }}</span> -->
-                    <i class="fa fa-check" ng-if="value.includes(book)"></i>
-                    <i class="fa fa-close" ng-if="!value.includes(book)"></i>
-                </td>
-            </tr>
-        </table>
+                <tr ng-repeat="(key,value) in createdIndex track by $index">
+                    <td>{{ key }} - {{ value }}</td>
+                    <td ng-repeat="book in count">
+                        <!-- <span >{{ value.includes(book) ? 'Yes' : 'No' }}</span> -->
+                        <i class="fa fa-check" ng-if="value.includes(book)"></i>
+                        <i class="fa fa-close" ng-if="!value.includes(book)"></i>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <script type="text/javascript" src="build/inverted-index.js"></script>
         <script type="text/javascript" src="js/main.js"></script>

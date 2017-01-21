@@ -1,11 +1,5 @@
-//require('jasmine/testFiles/empty.json');
-// "use strict";
-//require('jasmine/books.json');
 
-// function Index() {
-// 	console.log("I am inside the Index function");
-// }
-
+//require('../jasmine/testFiles/empty.json') ;
 class Index {
 
 	constructor(){
@@ -82,65 +76,20 @@ class Index {
 	}
 
 	verify(filePath){
-		var fs = require('fs');
-		//var data = fs.readFileSync(filePath);
-		//var Arr = JSON.parse(filePath);
-		//var FileReader = require('filereader');
-		//var data = fs.readFileSync(filePath);
-		
-		fs.readFile(filePath, function (err, data) {
-			data =JSON.parse(data);
-			//if(window.File && window.FileReader && window.FileList) {
-			// var r = new FileReader();
-			// if(filePath.files){
-			// 	r.onload = (e) =>{
-            // 	var file = e.target.result
-			// 	console.log(e.target.result);
-            //   	file = JSON.parse(file);
-			// 	console.log(file);
-
-			// 	}
-			// 	r.readAsText(file);
-			// 	if(file  === ""){
-			// 		console.log("File empty");
-		  	// 		return "File empty";
-		  	// 	}
-			// 	  else
-			// 	   console.log('hfj');
-			// }
-			try{	
-				//console.log(JSON.parse(data));
-				if(data  === ""){
-					console.log("File empty");
-		  			return "File empty";
-		  		}
-		  	//	else{
-		  			let check = false;
-		  			const file = JSON.parse(data);
-		  		
-		  			file.forEach((element)=> { 
-    					if (element.text === "undefined" || element.title === "undefined") {
-    						check = true;
-    						
-    					}
-					});
-
-					if(check){
-						console.log("Invalid Content");
+		//return "File empty";
+		var fs = require('browserify-fs');	
+		fs.readFile(filePath,'utf8',(err, data) =>  {
+					if(err){
+						return console.error(err);
 					}
-		  	//	}
-				
-		   			
-			}catch(e){
-
-				return console.error("Invalid JSON file");
-			}
-		
+					if(JSON.parse(data)  === ""){
+						console.log("File empty");
+		  				return "File empty";
+		  			}
+					else console.log(data);
 			
-
-	
 		});
-	}
+	 }
 
 }
 
@@ -157,7 +106,7 @@ function removeDuplicates(array){
 	}
 
 window.Index = Index;
-module.exports = Index;
+//module.exports = Index;
 
 //var c = new Index();
 //c.verify('../jasmine/testFiles/empty.json');

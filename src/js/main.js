@@ -26,23 +26,28 @@ app.controller('appCtrl', ($scope) => {
         $scope.n = document.getSelection('upload');
         
         $scope.files = document.getElementById('upload').files;
-        
+        $scope.name = [];
         console.log($scope.files);
         for(i = 0; i <$scope.files.length; i++){
-          var name = $scope.files.item(i).name;
-          console.log(name);
+          $scope.name.push($scope.files.item(i).name);
+          console.log($scope.name[i]);
+          var label = document.createElement('label');
+          var name = $scope.name[i];
+          label.innerHTML = name +" uploded";
+          document.getElementById("book").appendChild(label);
           var r = new FileReader();
             r.onload = (e) =>{
-              var file = e.target.result
-              //document.getElementById().innerHTML = file.name +" uploded";
-              console.log(file.name);
-              file = JSON.parse(file);
-              for(var j = 0;j<file.length;j++){
-
-                $scope.invertedIndex.allBooks.push(file[j]);
-              }
-              console.log(file);
-              
+              var file = e.target.result;  
+              try{
+                file = JSON.parse(file);
+                
+                for(var j = 0;j<file.length;j++){
+                  $scope.invertedIndex.allBooks.push(file[j]);
+                }
+                console.log(file);   
+              }catch(e){
+                alert("Kindly upload a JSON file");
+              }     
             }
             r.readAsText($scope.files[i]); 
         }
@@ -68,5 +73,9 @@ app.controller('appCtrl', ($scope) => {
       $scope.createdIndex = $scope.invertedIndex.search($scope.u);
 
     };
+
+    $scope.displayDiv = () => {
+      document.getElementById("crt").style.display = 'block';
+    }
 
 });

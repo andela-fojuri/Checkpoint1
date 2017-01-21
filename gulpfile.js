@@ -24,6 +24,18 @@ gulp.task('browserSync', function() {
   });
 });
 
+gulp.task('bundle-files', function() {
+  gulp.src("./src/inverted-index.js")
+    .pipe(browserify({}))
+    .pipe(gulp.dest('./src/build'));
+});
+
+gulp.task('bundle-files2', function() {
+  gulp.src("./jasmine/spec/inverted-index-test.js")
+    .pipe(browserify({}))
+    .pipe(gulp.dest('./jasmine/build'));
+});
+
 gulp.task('sass', function(){
   return gulp.src('src/scss/**/*.scss')
     .pipe(sass()) // Using gulp-sass
@@ -36,22 +48,21 @@ gulp.task('sass', function(){
 });
 
 gulp.task('jasmineBrowser', function(){
-	var filesForTest = ['src/inverted-index.js','jasmine/spec/inverted-index-test.js'];
-	return gulp.src(filesForTest)
-  //.pipe(webpack2({entry: {app: 'src/inverted-index.js', test: 'jasmine/spec/inverted-index-test.js' } ,watch: true, "target":"node",output: {filename: 'jasmine/spec/inverted-index-test.js'}}))
- .pipe(named())
+	var filesForTest = ['./jasmine/spec/inverted-index-test.js'];
+	return gulp.src(filesForTest) 
+  .pipe(webpack({watch: true, target:"node",output: {filename: './jasmine/build'}}))
+ //.pipe(watch(filesForTest, ['bundle-files2']))
+ //.pipe(webpack2({entry: {app: 'src/inverted-index.js', test: 'jasmine/spec/inverted-index-test.js' } ,watch: true, "target":"node",output: {filename: 'jasmine/spec/inverted-index-test.js'}}))
  //.pipe(webpack({watch:true, target:"node", output: {filename: 'spec/bundle.js'}}))
   //.pipe(webpack({watch: true,output: {filename: 'src/inverted-index.js'}}))
-  .pipe(jasmineBrowser.specRunner('jasmine/SpecRunner.html'))
-   // .pipe(jasmineBrowser.headless());
-    .pipe(jasmineBrowser.server({port:8856}));
+  .pipe(jasmineBrowser.specRunner('./jasmine/SpecRunner.html'))
+  .pipe(jasmineBrowser.server({port:8857}));
 	
 });
 
 
-gulp.task('jasmineBrowser2', jasmineBrowser2({
-
-    files: ['src/inverted-index.js','jasmine/spec/inverted-index-test.js'],
+gulp.task('jasmineBrowser2',['bundle-files'], jasmineBrowser2({
+    files: ['src/build/inverted-index.js','jasmine/spec/inverted-index-test.js'],
     watch: {
         options: {
             debounceTimeout: 1000, //The number of milliseconds to debounce. 
@@ -66,12 +77,14 @@ gulp.task('jasmineBrowser2', jasmineBrowser2({
 
 
 
-gulp.task('watch',['browserSync', 'sass'], function(){
+
+
+gulp.task('watch',['bundle-files','browserSync', 'sass'], function(){
 	var filesForTest = ['src/js/**/*.js','jasmine/spec/**/*.js'];
   gulp.watch('src/scss/**/*.scss', ['sass']); 
-  gulp.watch('src/**/*.html', browserSync.reload); 
-  gulp.watch('src/**/*.js', browserSync.reload);
-  gulp.watch(filesForTest, browserSync.reload);
+  gulp.watch('src/**/*.html', ['bundle-files'], browserSync.reload); 
+  gulp.watch('src/**/*.js', ['bundle-files', browserSync.reload ]);
+  gulp.watch(filesForTest, ['bundle-files'], browserSync.reload);
 
   // Other watchers
 });

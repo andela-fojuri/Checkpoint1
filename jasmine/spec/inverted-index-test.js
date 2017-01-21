@@ -1,21 +1,12 @@
 
 
- 
 
   describe('Inverted index test Suite: ', function () {
-    "use strict";
-  	//require('../../src/inverted-index.js');
-    describe('Read book data', function () {
-    	require('../../src/inverted-index.js');
-    	//var u = require('../testFiles/empty.json');
-    	var t = new Index();
-
+   var t = new Index();
+    describe('Read book data', function () {  	
       it('should return "Empty File" for upload with no data ', function () {
-        expect(t.verify(u)).to.Equal("File empty");
-      });
-                                                                                                                                                                                                                                                                                                                                                                                                                                         
+        expect(t.verify('../testFiles/empty.json')).toEqual("File empty");
+      });                                            
     });
-
-
   });
 

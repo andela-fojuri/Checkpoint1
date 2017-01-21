@@ -1,57 +1,48 @@
-<!DOCTYPE html>
+<!DOCTYPE>
 <html lang="en">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-      <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
-      <script type="text/javascript" src="angular-modal-service/dst/angular-modal-service.min.js"></script>
-      <script src="http://ngmaterial.assets.s3.amazonaws.com/svg-assets-cache.js"></script>
-	  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	  <link rel="stylesheet" type="" href="css/styles.css">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css" />
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script> -->
+<!-- <script type="text/javascript" src="angular-modal-service/dst/angular-modal-service.min.js"></script> -->
+<!-- <script src="http://ngmaterial.assets.s3.amazonaws.com/svg-assets-cache.js"></script> -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" type="" href="css/styles.css" />
+<title> Inverted Index</title>
+<!-- <script type="text/javascript">
+</script> -->
 
-       <script type="text/javascript" src = "inverted-index.js"></script>
-       <script type="text/javascript" src = "js/main.js"></script> 
-       <script type="text/javascript" src = "js/bundle2.js"></script> 
-
- 
-    <title> Inverted Index</title>
-
-    <script type="text/javascript">
-
-     
-      
-    </script>
-
-    <body ng-app = "myApp" ng-controller='appCtrl' class="navBardemoBasicUsage">
- 
-  <div>    
-    <header>
-      <md-content class="md-padding" >
-        <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
-        <div layout="row" layout-align ="left right">
-          <div flex = "90"> <label> INVERTED INDEX</label> </div>
-          <a href="" flex = "7">Sign Out</a>
-        </div> 
-        </md-nav-bar>
-      </md-content>
-  
-    </header>
-
-<div><h1>Select A file to Invert</h1></div>
-    <div> <md-button ng-click = "showPrompt()"> Select</md-button>
+<body ng-app="myApp" ng-controller='appCtrl' class="navBardemoBasicUsage">
+    <div>
+        <header>
+            <md-content class="md-padding">
+                <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+                    <div layout="row" layout-align="left right">
+                        <div flex="90">
+                            <label> INVERTED INDEX</label>
+                        </div>
+                        <a href="" flex="7">Sign Out</a>
+                    </div>
+                </md-nav-bar>
+            </md-content>
+        </header>
 
     </div>
-
-<input type = "file" file-model = "myFile" id = "upload" accept=".json" ng-click="isUploaded = false" multiple/>
-  <button class="btn btn-default" ng-click = "uploader()">Upload File</button>
-  <button class="btn btn-default" ng-click = "uploader()">Create Index</button>
- 
-   
-        
-          <!-- <div class = "md-dialog modal-lg">
+    <div class="jumbotron row justify-content-md-center col col-md-6">
+        <div><label>Select A file to Invert</label></div>
+        <div>
+            <md-button ng-click="showPrompt()"> Select</md-button>
+        </div>
+        <input type="file" file-model="myFile" id="upload" accept=".json" ng-click="isUploaded = false" multiple />
+        <button class="btn btn-default" ng-click="uploader()">Upload File</button>
+        <button class="btn btn-default" ng-click="create()">Create Index</button>
+        <input type="text" id = "term" >
+        <button class="btn btn-default" ng-click="search()"> search  </button>
+    </div>
+        <!-- <div class = "md-dialog modal-lg">
             <div class = "md-dialog-content"> 
               <div class = "md-dialog-actions"> 
                 <div class = "md-button" ng-click="closeDialog()" class="md-primary">
@@ -67,18 +58,26 @@
             <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
             <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
         </div> -->
-       <table >
-        <tr ng-repeat= "(key, value) in createdIndex">
-          <td >{{ key }}</td>
-        </tr>
-        
-      </table>
-       
+        <table class = "table">
+            <thead>
+                <th> Term </th>
+                <th ng-repeat = "key in count">     
+                    {{key}}
+                </th>      
+            </thead>
 
+            <tr ng-repeat="(key,value) in createdIndex track by $index">
+                <td>{{ key }} - {{ value }}</td>
+                <td ng-repeat="book in count">
+                    <!-- <span >{{ value.includes(book) ? 'Yes' : 'No' }}</span> -->
+                    <i class="fa fa-check" ng-if="value.includes(book)"></i>
+                    <i class="fa fa-close" ng-if="!value.includes(book)"></i>
+                </td>
+            </tr>
+        </table>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script type="text/javascript" src="build/inverted-index.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+</body>
 
-  
- 
-    
-   
-  </body>
 </html>

@@ -36,7 +36,7 @@ class Index {
 	}
 
 	createIndex(file, filename){
-		// if(filePath.length === 0){
+		// if(filePath.length === 0)
 		// 	this.
 		// }
 		var result = [];
@@ -81,17 +81,12 @@ class Index {
 
 	verify(file){
 		if (file.length === 0) {
-			console.log("File empty");
 			return "File empty";
 		}
-
-		if(JSON.parse(file)){
-			return "Kindly"
+		if(JSON.stringify(file[0]) === undefined){
+			return "Not a JSON file";
 		}
-
-		
-
-
+		else return "valid";
 	 }
 
 
@@ -125,15 +120,15 @@ class Index {
 window.Index = Index;
 //module.exports = Index;
 
-var c = new Index();
-//c.verify("../jasmine/books.json");
-//c.verify('jasmine/testFiles/empty.json');
+// var c = new Index();
+// //c.verify("../jasmine/books.json");
+// //c.verify('jasmine/testFiles/empty.json');
 
-var t = require("../jasmine/books.json");
-//console.log(c.createIndex(t,"books.json").alice[0]);
-console.log(c.search("book.json",'alice'));
-//console.log(t);
-//var t = require("../jasmine/testFiles/empty.json");
-//console.log(t[1]);
-//c.verify(t);
+// var t = require("../jasmine/books.json");
+// //console.log(c.createIndex(t,"books.json").alice[0]);
+// console.log(c.search("book.json",'alice'));
+// //console.log(t);
+// //var t = require("../jasmine/testFiles/empty.json");
+// //console.log(t[1]);
+// //c.verify(t);
 

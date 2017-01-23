@@ -10,7 +10,10 @@ var t = require("../../src/inverted-index.js");
         expect(t.verify(empty)).toEqual("File empty");
       }); 
       it('should return "Not a JSON file" for upload of a file other than JSON ', function () {
-        expect(t.verify(empty)).toEqual("File empty");
+        expect(t.verify(wrongFile)).toEqual("Not a JSON file");
+      }); 
+      it('should return "Not a JSON file" for upload of a file other than JSON ', function () {
+        expect(t.verify(validFile)).toEqual("valid");
       });                                             
     });
 

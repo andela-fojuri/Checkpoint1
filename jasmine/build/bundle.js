@@ -24,7 +24,10 @@ var t = require("../../src/inverted-index.js");
         expect(t.verify(empty)).toEqual("File empty");
       }); 
       it('should return "Not a JSON file" for upload of a file other than JSON ', function () {
-        expect(t.verify(empty)).toEqual("File empty");
+        expect(t.verify(wrongFile)).toEqual("Not a JSON file");
+      }); 
+      it('should return "Not a JSON file" for upload of a file other than JSON ', function () {
+        expect(t.verify(validFile)).toEqual("valid");
       });                                             
     });
 
@@ -42,7 +45,7 @@ var t = require("../../src/inverted-index.js");
 
     describe('Search index', function () {  	
       it('t verifies that searching the index returns an array of the indices of the correct objects that contain the words in the search query ', function () {
-        expect(t.search("books.json", and)).toEqual({'and':[0,1]});
+        expect(t.search("books.json", 'and')).toEqual({'and':[0,1]});
       });                                            
     });
 
@@ -77,29 +80,28 @@ class Index {
 		for(var key in arguments){
 			term.push(arguments[key]);		
 		}
-		console.log(term);
+		//console.log(term);
 		
 		term = term.toString().toLowerCase().match(/\w+/g);
 
-		let result = {};
-
+		var result = {};
+		
 		term.forEach((word) =>{
 			for(var key in this.index[filename]){
-
 					if(word === key){
 					result[key] = this.index[filename][key]; 			
 			}
 				
 			}
 		});
-	
+
 		
-		//console.log(result);
+
 		return result;
 	}
 
 	createIndex(file, filename){
-		// if(filePath.length === 0){
+		// if(filePath.length === 0)
 		// 	this.
 		// }
 		var result = [];
@@ -144,13 +146,12 @@ class Index {
 
 	verify(file){
 		if (file.length === 0) {
-			console.log("File empty");
 			return "File empty";
 		}
-
-		if(JSON.parse(file)){
-			return "Kindly"
+		if(JSON.stringify(file[0]) === undefined){
+			return "Not a JSON file";
 		}
+		else return "valid";
 
 		
 
@@ -188,16 +189,17 @@ class Index {
 window.Index = Index;
 //module.exports = Index;
 
-var c = new Index();
-//c.verify("../jasmine/books.json");
-//c.verify('jasmine/testFiles/empty.json');
+// var c = new Index();
+// //c.verify("../jasmine/books.json");
+// //c.verify('jasmine/testFiles/empty.json');
 
-var t = require("../jasmine/books.json");
-console.log(c.createIndex(t,"books.json").alice[0]);
-//console.log(t);
-//var t = require("../jasmine/testFiles/empty.json");
-//console.log(t[1]);
-//c.verify(t);
+// var t = require("../jasmine/books.json");
+// //console.log(c.createIndex(t,"books.json").alice[0]);
+// console.log(c.search("book.json",'alice'));
+// //console.log(t);
+// //var t = require("../jasmine/testFiles/empty.json");
+// //console.log(t[1]);
+// //c.verify(t);
 
 
-},{"../jasmine/books.json":1}]},{},[2])
+},{}]},{},[2])

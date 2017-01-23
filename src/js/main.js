@@ -23,8 +23,8 @@ app.controller('appCtrl', ($scope) => {
 
     $scope.uploader = () => {
       if (window.File && window.FileReader && window.FileList) {
-        $scope.files = document.getElementById('upload').files[0];     
-        // console.log($scope.files);
+        $scope.files = document.getElementById('upload').files[0];   
+        if($scope.files){
           $scope.name.push($scope.files.name);
 
           var r = new FileReader();
@@ -41,6 +41,12 @@ app.controller('appCtrl', ($scope) => {
               }     
             }
             r.readAsText($scope.files);
+        }
+        else{
+          alert("Kindly choose a file to upload");
+        }  
+        // console.log($scope.files);
+          
       } else {
         console.log('The File APIs are not fully supported by your browser.');
       }

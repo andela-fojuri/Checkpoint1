@@ -1,17 +1,4 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-module.exports=[
-  {
-    "title": "Alice in Wonderland",
-    "text": "Alice falls into a rabbit hole and enters a world full of imagination."
-  },
-
-  {
-    "title": "The Lord of the Rings: The Fellowship of the Ring.",
-    "text": "An unusual alliance of man, elf, dwarf, wizard and hobbit seek to destroy a the powerful ring."
-  }
-]
-
-},{}],2:[function(require,module,exports){
 
 class Index {
 	constructor(){
@@ -50,7 +37,7 @@ class Index {
 	}
 
 	createIndex(file, filename){
-		// if(filePath.length === 0){
+		// if(filePath.length === 0)
 		// 	this.
 		// }
 		var result = [];
@@ -95,17 +82,12 @@ class Index {
 
 	verify(file){
 		if (file.length === 0) {
-			console.log("File empty");
 			return "File empty";
 		}
-
-		if(JSON.parse(file)){
-			return "Kindly"
+		if(JSON.stringify(file[0]) === undefined){
+			return "Not a JSON file";
 		}
-
-		
-
-
+		else return "valid";
 	 }
 
 
@@ -139,17 +121,17 @@ class Index {
 window.Index = Index;
 //module.exports = Index;
 
-var c = new Index();
-//c.verify("../jasmine/books.json");
-//c.verify('jasmine/testFiles/empty.json');
+// var c = new Index();
+// //c.verify("../jasmine/books.json");
+// //c.verify('jasmine/testFiles/empty.json');
 
-var t = require("../jasmine/books.json");
-//console.log(c.createIndex(t,"books.json").alice[0]);
-console.log(c.search("book.json",'alice'));
-//console.log(t);
-//var t = require("../jasmine/testFiles/empty.json");
-//console.log(t[1]);
-//c.verify(t);
+// var t = require("../jasmine/books.json");
+// //console.log(c.createIndex(t,"books.json").alice[0]);
+// console.log(c.search("book.json",'alice'));
+// //console.log(t);
+// //var t = require("../jasmine/testFiles/empty.json");
+// //console.log(t[1]);
+// //c.verify(t);
 
 
-},{"../jasmine/books.json":1}]},{},[2])
+},{}]},{},[1])

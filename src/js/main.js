@@ -1,7 +1,9 @@
 var app = angular.module('myApp', ['ngMessages']);
 // app.controller('appCtrl', ['$scope', 'ModalService', ($scope, ModalService) => {
 app.controller('appCtrl', ($scope) => {
-   $scope.createdIndex = {};
+  // $scope.createdIndex = {};
+    $scope.name = [];
+    $scope.invertedIndex = new Index();
     
 
     $scope.showPrompt = () => {
@@ -20,57 +22,44 @@ app.controller('appCtrl', ($scope) => {
 
 
     $scope.uploader = () => {
-    
-    $scope.invertedIndex = new Index();
       if (window.File && window.FileReader && window.FileList) {
-        $scope.n = document.getSelection('upload');
-        
-        $scope.files = document.getElementById('upload').files;
-        $scope.name = [];
-        console.log($scope.files);
-        for(i = 0; i <$scope.files.length; i++){
-          $scope.name.push($scope.files.item(i).name);
-          console.log($scope.name[i]);
-          var label = document.createElement('label');
-          var name = $scope.name[i];
-          label.innerHTML = name +" uploded";
-          document.getElementById("book").appendChild(label);
+        $scope.files = document.getElementById('upload').files[0];     
+        // console.log($scope.files);
+          $scope.name.push($scope.files.name);
+
           var r = new FileReader();
             r.onload = (e) =>{
               var file = e.target.result;  
               try{
                 file = JSON.parse(file);
-                
-                for(var j = 0;j<file.length;j++){
-                  $scope.invertedIndex.allBooks.push(file[j]);
-                }
-                console.log(file);   
+                $scope.invertedIndex.allBooks = $scope.invertedIndex.allBooks.concat(file);
+                $scope.invertedIndex.createIndex(file, $scope.files.name);
+                $scope.invertedIndex.createIndex($scope.invertedIndex.allBooks);
+                console.log($scope.invertedIndex);
               }catch(e){
-                alert("Kindly upload a JSON file");
+                console.log(e);
               }     
             }
-            r.readAsText($scope.files[i]); 
-        }
-        
-        
-       // console.log(invertedIndex.allBooks);
+            r.readAsText($scope.files);
       } else {
         console.log('The File APIs are not fully supported by your browser.');
       }
 
     };
-
-    $scope.create=()=>{
-        $scope.createdIndex = $scope.invertedIndex.createIndex($scope.invertedIndex.allBooks);
-        $scope.count = $scope.invertedIndex.count;
+    
+    $scope.create=()=>{   
+      $scope.e = document.getElementById("filename");    
+      var filen = $scope.e.options[$scope.e.selectedIndex].value;
+      $scope.createdIndex = $scope.invertedIndex.getIndex(filen.replace(/\.json|\.|\s/g, ''));
+      $scope.count = $scope.invertedIndex.docNum[filen.replace(/\.json|\.|\s/g, '')];
     }
 
 
     $scope.search = () => {
-      //ind = invertedIndex.index;
+      $scope.e = document.getElementById("filename");    
+      var filen = $scope.e.options[$scope.e.selectedIndex].value;
       $scope.u = document.getElementById('term').value;
-      console.log($scope.u);
-      $scope.createdIndex = $scope.invertedIndex.search($scope.u);
+      $scope.createdIndex = $scope.invertedIndex.search(filen.replace(/\.json|\.|\s/g, ''),$scope.u);
 
     };
 

@@ -31,19 +31,23 @@
         </header>
     </div>
 
-    <div class = "row container" >
+    <div class = "row" >
         <div class="col-md-5" id = "i">
             <h2>Choose A file </h2>  
             <div class = "row" id = "space">  
-                <div class = "col-md-8"><input type="file" file-model="myFile" id="upload" accept=".json" ng-click="isUploaded = false" multiple /></div>
+                <div class = "col-md-8"><input type="file" file-model="myFile" id="upload" accept=".json"></div>
                 <div class="col-md-3"><button class="btn btn-default btn-primary" ng-click="uploader(); displayDiv();">Upload File</button></div>
-                <div id = "book"></div>
+                <div id = "book">
+                    <select class="selectpicker" id = "filename">
+                        <option value="allBooks">All Books</option>
+                        <option ng-repeat="value in name"> {{value}}</option>
+                    </select>
+                </div>
             </div>
             <div class="row top-buffer" style="display:none;" id = "crt">
-               
                    <button class="btn btn-default" ng-click="create()">Create Index</button>
-                    <input type="text" id = "term" placeholder="Search for..." >
-                    <button class="btn btn-default " ng-click="search()"> go  </button>
+                    <input type="text" id = "term" placeholder="Search for.." >
+                    <button class="btn btn-default " ng-click="search()"> go </button>
               
             </div>
       </div>  

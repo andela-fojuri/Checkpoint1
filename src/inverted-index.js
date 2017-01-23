@@ -1,54 +1,60 @@
 
-//require('../jasmine/testFiles/empty.json') ;
 class Index {
-
 	constructor(){
-		this.index = {};
-		this.count = [];
+		this.index = {};	
 		this.allBooks = [];
+		this.docNum = {};
 	}
 
-	getIndex(){
-		return this.index;
+	getIndex(filename){
+		return this.index[filename];
 	}
 
-	search(term){
+	search(filename,term){
 		term = [];
 		for(var key in arguments){
-			term.push(arguments[key]);
+			term.push(arguments[key]);		
 		}
+		//console.log(term);
 		
 		term = term.toString().toLowerCase().match(/\w+/g);
-		console.log(term);
-		let result = {};
 
+		var result = {};
+		
 		term.forEach((word) =>{
-			for(var key in this.index){
-				if(word === key){
-					result[key] = this.index[key]; 
-				}
+			for(var key in this.index[filename]){
+					if(word === key){
+					result[key] = this.index[filename][key]; 			
+			}
+				
 			}
 		});
-	
+
 		
-		console.log(result);
+
 		return result;
 	}
 
-	createIndex(filePath){
-		var sortObj = require('sort-object');
+	createIndex(file, filename){
+		// if(filePath.length === 0){
+		// 	this.
+		// }
 		var result = [];
 		var obj = {};
+		filename = filename ? filename : "allBooks";
 		//var fs = require('fs');
 		//var data = fs.readFileSync(filePath);
 		//var Arr = JSON.parse(filePath);
+
 		var splittedText = [];
 		var splittedTitle = [];
 		var doc = [];
-		filePath.forEach((document,index)=>{
-			this.count.push(index);
+		var count = [];
+		file.forEach((document,index)=>{
+			count.push(index);
+				
 		   	splittedText = document.text.toLowerCase().match(/\w+/g);
-		   	splittedText = removeDuplicates(splittedText);
+		   	splittedText = this.removeDuplicates(splittedText);
 		   	//splittedTitle = document.title.toLowerCase().match(/\w+/g);
 		   	//splittedTitle = removeDuplicates(splittedTitle);
 		   //	doc = splittedText.concat(splittedTitle);
@@ -67,34 +73,39 @@ class Index {
 		   			
 		   		});
 		   });
-		   
-		  // console.log(sortObj(obj));
-		   
-		this.index = sortObj(obj);
-		return this.index;
 		
+		this.docNum[filename.replace(/\.json|\.|\s/g, '')] = count; 
+		this.index[filename.replace(/\.json|\.|\s/g, '')] = this.sortObj(obj);
+		return this.sortObj(obj);
 	}
 
-	verify(filePath){
-		//return "File empty";
-		var fs = require('browserify-fs');	
-		fs.readFile(filePath,'utf8',(err, data) =>  {
-					if(err){
-						return console.error(err);
-					}
-					if(JSON.parse(data)  === ""){
-						console.log("File empty");
-		  				return "File empty";
-		  			}
-					else console.log(data);
-			
-		});
+	verify(file){
+		if (file.length === 0) {
+			console.log("File empty");
+			return "File empty";
+		}
+
+		if(JSON.parse(file)){
+			return "Kindly"
+		}
+
+		
+
+
 	 }
 
-}
 
-function removeDuplicates(array){ 
-"use strict";	
+
+	 sortObj(index){
+        let sortedKeys = Object.keys(index).sort();
+        let sortedObject = {}; //Object that will contain the sorted object
+        sortedKeys.forEach((key)=>{
+            sortedObject[key] = index[key];
+        });
+        return(sortedObject);
+    }
+
+	removeDuplicates(array){ 
 		for(var i = 0; i < array.length; i++){
 			for(var j = i+1; j < array.length; j++){
 				if(array[i] === array[j]){
@@ -105,9 +116,24 @@ function removeDuplicates(array){
 		return array;
 	}
 
+}
+
+
+
+	
+
 window.Index = Index;
 //module.exports = Index;
 
-//var c = new Index();
-//c.verify('../jasmine/testFiles/empty.json');
+var c = new Index();
+//c.verify("../jasmine/books.json");
+//c.verify('jasmine/testFiles/empty.json');
+
+var t = require("../jasmine/books.json");
+//console.log(c.createIndex(t,"books.json").alice[0]);
+console.log(c.search("book.json",'alice'));
+//console.log(t);
+//var t = require("../jasmine/testFiles/empty.json");
+//console.log(t[1]);
+//c.verify(t);
 

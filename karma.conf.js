@@ -1,7 +1,7 @@
 // Karma configuration
 // Generated on Sat Jan 21 2017 23:02:05 GMT+0100 (WAT)
 
-module.exports = function(config) {
+module.exports = (config) => {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -10,12 +10,12 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine','browserify','requirejs'],
+    frameworks: ['jasmine', 'browserify', 'requirejs'],
 
     // list of files / patterns to load in the browser
     files: [
-       "src/inverted-index.js",    
-      "jasmine/spec/inverted-index-test.js",       
+      'src/inverted-index.js',
+      'jasmine/spec/inverted-index-test.js',
     ],
 
 
@@ -67,5 +67,5 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
-  })
-}
+  });
+};

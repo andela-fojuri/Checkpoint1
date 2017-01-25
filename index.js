@@ -9,5 +9,5 @@ app.listen(process.env.PORT || 5000, () => {
 });
 
 app.get('/', (req, res) => {
-  res.send('Hello world');
+  res.sendFile('index.html');
 });

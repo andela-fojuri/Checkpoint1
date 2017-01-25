@@ -139,7 +139,7 @@ class Index {
  * @param {string} file is the name of the file to me indexed
   * @return {string} Returns an Object containing the created Index.
  */
-  static verify(file) {
+  verify(file) {
     if (file.length === 0) {
       return 'File empty';
     }
@@ -152,7 +152,7 @@ class Index {
  * @param {string} index is the name of the file to me indexed
   * @return {Object} Returns an Object containing the created Index.
  */
-  static sortObj(index) {
+  sortObj(index) {
     const sortedKeys = Object.keys(index).sort();
     const sortedObject = {};  // Object that will contain the sorted object
     sortedKeys.forEach((key) => {
@@ -165,7 +165,7 @@ class Index {
  * @param {array} array is the name of the file to me indexed
   * @return {array} Returns an Object containing the created Index.
  */
-  static removeDuplicates(array) {
+  removeDuplicates(array) {
     for (let i = 0; i < array.length; i += 1) {
       for (let j = i + 1; j < array.length; j += 1) {
         if (array[i] === array[j]) {

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start":"gulp watch",
     "test": "gulp test"
   },
   "repository": {

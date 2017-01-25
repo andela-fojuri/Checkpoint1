@@ -4,9 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"gulp watch",
+    "start":"gulp",
     "test": "gulp test",
-    "send-cov": "coveralls < coverage/lcov.info"
+    "send-cov": "coveralls < coverage/lcov.info",
+    "postinstall": "npm install gulp"
+  },
+  "engines": {
+    "node": "6.9.4",
+    "npm": "3.10.10"
   },
   "repository": {
     "type": "git",

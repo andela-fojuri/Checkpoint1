@@ -78,7 +78,7 @@
                 </thead>
 
                 <tr ng-repeat="(key,value) in createdIndex track by $index">
-                    <td>{{ key }} - {{ value }}</td>
+                    <td>{{ key }}</td>
                     <td ng-repeat="book in count">
                         <!-- <span >{{ value.includes(book) ? 'Yes' : 'No' }}</span> -->
                         <i class="fa fa-check" ng-if="value.includes(book)"></i>

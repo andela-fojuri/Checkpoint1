@@ -1,17 +1,11 @@
 const gulp = require('gulp');
 const browserSync = require('browser-sync').create();
 const sass = require('gulp-sass');
-const jasmine = require('gulp-jasmine');
-const jasmineBrowser = require('gulp-jasmine-browser');
-const jasmineBrowser2 = require('gulp-jasmine-livereload-task');
-const webpack = require('webpack-stream');
-const webpack2 = require('gulp-webpack');
-const watch = require('gulp-watch');
+// const jasmine = require('gulp-jasmine');
+// const webpack = require('webpack-stream');
+// const watch = require('gulp-watch');
 const browserify = require('gulp-browserify');
-const named = require('vinyl-named');
-const karma = require('gulp-karma');
-const Server = require('karma').Server;
-const server = require('karma-server-side');
+
 const rename = require('gulp-rename');
 
 gulp.task('browserSync', () => {

@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "",
     "test": "gulp test"
   },
   "repository": {

@@ -35,7 +35,7 @@
         <div class="col-md-5" id = "i">
             <h2>Choose A file to Invert </h2>  
             <div class = "row" id = "space">  
-                <div class = "col-md-8"><input type="file" file-model="myFile" id="upload" accept=".json"></div>
+                <div class = "col-md-8"><input type="file" file-model="myFile" id="upload" accept=".json" multiple/></div>
                 <div class="col-md-3"><button class="btn btn-default btn-primary" ng-click="uploader(); displayDiv();">Upload File</button></div>
                 <div id = "book">
                     <select class="selectpicker" id = "filename">
@@ -74,7 +74,7 @@
             <table class = "col-md-6 table jumbotron table-hover table-responsive ">
                 <thead>
                     <th ng-if= "count.length > 0"> Term </th>
-                    <th ng-repeat = "key in count">{{"Doc" + key}}</th>      
+                    <th ng-repeat = "key in title">{{ key }}</th>      
                 </thead>
 
                 <tr ng-repeat="(key,value) in createdIndex track by $index">

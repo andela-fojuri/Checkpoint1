@@ -9,7 +9,6 @@ app.controller('appCtrl', ['$scope', 'ModalService', ($scope, ModalService) => {
       if (Object.keys($scope.files).length > 0) {
         Object.keys($scope.files).forEach((file, index) => {
           const filename = $scope.files[index].name;
-          $scope.name.push(filename);
           const reader = new FileReader();
           reader.onload = (e) => {
             let fileContent = e.target.result;
@@ -17,21 +16,22 @@ app.controller('appCtrl', ['$scope', 'ModalService', ($scope, ModalService) => {
               fileContent = JSON.parse(fileContent);
               $scope.verifyFile(fileContent);
               if ($scope.valid) {
+                $scope.name.push(filename);
                 $scope.displayDiv();
                 $scope.invertedIndex.allBooks = $scope.invertedIndex.allBooks.concat(fileContent);
                 $scope.invertedIndex.createIndex($scope.invertedIndex.allBooks);
                 $scope.invertedIndex.createIndex(fileContent, filename);
+                $scope.message = 'File Uploaded Successfully';
+                $scope.showModal();
+                document.getElementById('upload').value = null;
               }
             } catch (err) {
               $scope.message = 'File type not Supported;Upload only a JSON file';
               $scope.showModal();
             }
           };
-
           reader.readAsText($scope.files[index]);
         });
-        $scope.message = 'File Uploaded Successfully';
-        $scope.showModal();
       } else {
         $scope.message = 'Kindly choose a file to upload';
         $scope.showModal();
@@ -40,7 +40,6 @@ app.controller('appCtrl', ['$scope', 'ModalService', ($scope, ModalService) => {
       $scope.message = 'The File APIs are not fully supported by your browser.';
       $scope.showModal();
     }
-    document.getElementById('upload').value = '';
   };
   $scope.create = () => {
     $scope.e = document.getElementById('filename');
@@ -85,14 +84,14 @@ app.controller('appCtrl', ['$scope', 'ModalService', ($scope, ModalService) => {
       $scope.message = 'File cannot be Empty';
       $scope.showModal();
       $scope.valid = false;
-    } else {
-      file.forEach((book) => {
-        if (!book.title || !book.text) {
-          $scope.message = 'Your books must be an object of title and text';
-          $scope.showModal();
-          $scope.valid = false;
-        }
-      });
     }
+    file.forEach((book) => {
+      $scope.valid = true;
+      if (!book.title || !book.text) {
+        $scope.message = 'Your books must be an object of title and text';
+        $scope.showModal();
+        $scope.valid = false;
+      }
+    });
   };
 }]);

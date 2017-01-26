@@ -1,19 +1,16 @@
 <!DOCTYPE>
 <html lang="en">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css" />
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script> -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script> -->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-<!-- <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script> -->
-<!-- <script type="text/javascript" src="angular-modal-service/dst/angular-modal-service.min.js"></script> -->
-<!-- <script src="http://ngmaterial.assets.s3.amazonaws.com/svg-assets-cache.js"></script> -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-<link rel="stylesheet" type="" href="css/styles.css" />
-<title> Inverted Index</title>
-<!-- <script type="text/javascript">
-</script> -->
+<head>
+    <title> Inverted Index</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="" href="css/styles.css" />
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+              
+</head>
+        <!-- <script type="text/javascript">
+        </script> -->
 
 <body ng-app="myApp" ng-controller='appCtrl' class="navBardemoBasicUsage">
     <div>
@@ -33,22 +30,31 @@
 
     <div class = "row" >
         <div class="col-md-5" id = "i">
-            <h2>Choose A file to Invert </h2>  
+            <h2> Choose a file to get started... </h2>  
             <div class = "row" id = "space">  
-                <div class = "col-md-8"><input type="file" file-model="myFile" id="upload" accept=".json" multiple/></div>
-                <div class="col-md-3"><button class="btn btn-default btn-primary" ng-click="uploader(); displayDiv();">Upload File</button></div>
-                <div id = "book">
+                <div class = "col-md-8"><input type="file" file-model="myFile" id="upload" ng-click="isUploaded = false" accept=".json" multiple/></div>
+                <div class="col-md-4"><button class="btn btn-default btn-primary" ng-click="uploader();">Upload File</button></div>
+                <div id = "book" style="display:none;">
                     <select class="selectpicker" id = "filename">
+                        <option selected="true" disabled="disabled">Select a File</option>
                         <option value="allBooks">All Books</option>
                         <option ng-repeat="value in name"> {{value}}</option>
                     </select>
                 </div>
             </div>
             <div class="row top-buffer" style="display:none;" id = "crt">
-                   <button class="btn btn-default" ng-click="create()">Create Index</button>
+                   <button class="btn btn-default btn-primary" ng-click="create()">Create Index</button>
                     <input type="text" id = "term" placeholder="Search for.." >
-                    <button class="btn btn-default " ng-click="search()"> go </button>
-              
+                    <button class="btn btn-default btn-primary " ng-click="search()"> search </button>  
+            </div>
+
+            <div>
+                <p> **NOTE** <br>
+                    -You can upload one or multiple files<br>
+                    -Ensure that your file is of type JSON<br>
+                    -After uploading, select a file in the drop-down list to invert<br>
+                    -Search query can be executed on each file or all files.<br>
+                    -Index can also be created for all files</p>
             </div>
       </div>  
     <!--<div class = "md-dialog modal-lg">
@@ -70,7 +76,7 @@
             <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
             <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
         </div>-->
-        <div class = " col-md-7">
+        <div class = "col-md-7">
             <table class = "col-md-6 table jumbotron table-hover table-responsive ">
                 <thead>
                     <th ng-if= "count.length > 0"> Term </th>
@@ -88,9 +94,17 @@
             </table>
         </div>
     </div>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <script type="text/javascript" src="inverted-index.js"></script>
+        
+        
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+        <script type="text/javascript" src="angular-modal-service/dst/angular-modal-service.min.js"></script>
+        <script type="text/javascript" src="inverted-index.js"></script> 
         <script type="text/javascript" src="js/main.js"></script>
+        
 </body>
 
 </html>

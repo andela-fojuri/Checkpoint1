@@ -1,9 +1,8 @@
 const gulp = require('gulp');
 const browserSync = require('browser-sync').create();
 const sass = require('gulp-sass');
-// const jasmine = require('gulp-jasmine');
-// const webpack = require('webpack-stream');
-// const watch = require('gulp-watch');
+const jasmineBrowser = require('gulp-jasmine-browser');
+const watch = require('gulp-watch');
 const browserify = require('gulp-browserify');
 
 const rename = require('gulp-rename');
@@ -27,6 +26,14 @@ gulp.task('test', () => {
     .pipe(browserify({ watch: true }))
     .pipe(rename('bundle.js'))
     .pipe(gulp.dest('jasmine/build'));
+});
+
+gulp.task('jasmine', () => {
+  const filesForTest = ['src/*.js', 'spec/*.js'];
+  return gulp.src(filesForTest)
+    .pipe(watch(filesForTest))
+    .pipe(jasmineBrowser.specRunner())
+    .pipe(jasmineBrowser.server({ port: 8888 }));
 });
 
 gulp.task('sass', () => {

@@ -85,7 +85,13 @@ class Index {
     }
     if (JSON.stringify(file[0]) === undefined) {
       return 'Not a JSON file';
-    } return 'valid';
+    }
+    file.forEach((book) => {
+      if (!book.title || !book.text) {
+        return 'Your books must be an object of title and text';
+      }
+    });
+    return 'valid';
   }
   /**
  * A method to retun a created index

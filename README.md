@@ -4,13 +4,18 @@
 
 
 # Description
-    Creats an inverted index of an JSON file
+    Develop an inverted index object that takes a JSON array of text objects and creates an index from the array. 
+    The index allows a user to search for text blocks in the array that contain a specified collection of words.
 
 #TECNOLOGIS USED
     Javascript
     AngularJS
     Express
     Jasmine
+    Karma
+    TravisCI
+    HoundCI
+
 #RUNNING THE APP
     To Run the Project:
     1. Run npm install in your CLI to install all dependencies

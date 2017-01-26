@@ -42,6 +42,9 @@ describe('Inverted index test Suite: ', () => {
       expect(index.createIndex(validFile, 'books.json').alice).toEqual([0]);
       expect(index.createIndex(validFile, 'books.json').a).toEqual([0, 1]);
     });
+    it('Ensure getIndex method takes a string argument that specifies the location of the JSON data. ', () => {
+      expect(index.getIndex('books')).toBeDefined();
+    });
   });
   describe('Search index', () => {
     it('verifies that searching the index returns an array of the indices of the correct objects that contain the words in the search query ', () => {

@@ -4,11 +4,15 @@
 
 
 # Description
-# Creats an inverted index of a JSON file
+    Creats an inverted index of an JSON file
 
 #TECNOLOGIS USED
-#JAVASCRIPT
-#AngularJS
-#Express
-#Jasmine
+    Javascript
+    AngularJS
+    Express
+    Jasmine
+#RUNNING THE APP
+    To Run the Project:
+    1. Run npm install in your CLI to install all dependencies
+    2. Run npm start.
 

@@ -12,6 +12,7 @@ class Index {
     this.index = {};
     this.allBooks = [];
     this.docNum = {};
+    this.documentTitle = {};
   }
 /**
  * A method that retuns a created index
@@ -32,13 +33,11 @@ class Index {
     term = term.toString().toLowerCase().match(/\w+/g);
     const result = {};
     term.forEach((word) => {
-     // for (let key in this.index[name]){
       Object.keys(this.index[name]).forEach((key) => {
         if (word === key) {
           result[key] = this.index[name][key];
         }
       });
-    // }
     });
     return result;
   }
@@ -52,10 +51,11 @@ class Index {
     const createdObj = {};
     filename = filename || 'allBooks';
     let splittedText = [];
-    // let splittedTitle = [];
+    const title = [];
     const count = [];
     file.forEach((document, index) => {
       count.push(index);
+      title.push(document.title);
       splittedText = document.text.toLowerCase().match(/\w+/g);
       splittedText = this.removeDuplicates(splittedText);
       splittedText.forEach((word) => {
@@ -71,6 +71,7 @@ class Index {
     filename = filename.replace(/\.json|\.|\s/g, '');
     this.docNum[filename] = count;
     this.index[filename] = this.sortObj(createdObj);
+    this.documentTitle[filename] = title;
     return this.index[filename];
   }
   /**

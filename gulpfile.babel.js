@@ -29,7 +29,7 @@ gulp.task('test', () => {
 });
 
 gulp.task('jasmine', () => {
-  const filesForTest = ['src/*.js', ',/jasmine/build/build.js'];
+  const filesForTest = ['jasmine/less/**/*'];
   return gulp.src(filesForTest)
     .pipe(watch(filesForTest))
     .pipe(jasmineBrowser.specRunner())
@@ -37,6 +37,13 @@ gulp.task('jasmine', () => {
 });
 
 gulp.task('testJasmine', ['test', 'jasmine']);
+
+gulp.task('tt', ['test'], () => {
+  gulp.watch('./jasmine/spec/inverted-index-test.js', ['test'],
+  browserSync.reload);
+});
+
+
 
 gulp.task('sass', () => gulp.src('src/scss/**/*.scss')
   .pipe(sass()) // Using gulp-sass
@@ -53,4 +60,4 @@ gulp.task('watch', ['browserSync', 'sass'], () => {
   gulp.watch(filesForTest, browserSync.reload);
 });
 
-gulp.task('default', ['watch', 'test']);
+gulp.task('default', ['test', 'jasmine']);

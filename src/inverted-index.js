@@ -90,22 +90,22 @@ class Index {
     return this.index[filename];
   }
   /**
- * A method to retun a created index
- * @param {string} index is the name of the file to me indexed
-  * @return {Object} Returns an Object containing the created Index.
+ * A method to sort an Object by Key
+ * @param {string} index the Object to Sort
+  * @return {Object} Returns the Sorted Object.
  */
-  sortObj(index) {
-    const sortedKeys = Object.keys(index).sort();
-    const sortedObject = {};  // Object that will contain the sorted object
+  sortObj(obj) {
+    const sortedKeys = Object.keys(obj).sort();
+    const sortedObject = {};
     sortedKeys.forEach((key) => {
-      sortedObject[key] = index[key];
+      sortedObject[key] = obj[key];
     });
     return (sortedObject);
   }
   /**
- * A method to retun a created index
- * @param {array} array is the name of the file to me indexed
-  * @return {array} Returns an Object containing the created Index.
+ * A method to remove duplicate words in an array
+ * @param {array} array the array to remove from
+  * @return {array} Returns an array with no duplicate words.
  */
   removeDuplicates(array) {
     for (let i = 0; i < array.length; i += 1) {

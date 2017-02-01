@@ -46,6 +46,7 @@ app.controller('appCtrl', ['$scope', 'ModalService', ($scope, ModalService) => {
   $scope.create = () => {
     $scope.e = document.getElementById('filename');
     let filen = $scope.e.options[$scope.e.selectedIndex].value;
+    $scope.filen = filen;
     filen = filen.replace(/\.json|\.|\s/g, '');
     $scope.createdIndex = $scope.invertedIndex.getIndex(filen);
     if (!$scope.createdIndex) {
@@ -53,7 +54,6 @@ app.controller('appCtrl', ['$scope', 'ModalService', ($scope, ModalService) => {
       $scope.showModal();
     }
     $scope.count = $scope.invertedIndex.docNum[filen];
-    // $scope.title = $scope.invertedIndex.documentTitle[filen.replace(/\.json|\.|\s/g, '')];
   };
   $scope.search = () => {
     $scope.e = document.getElementById('filename');

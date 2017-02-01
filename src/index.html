@@ -48,9 +48,14 @@
                     <input type="text" id = "term" placeholder="Search for.." >
                     <button class="btn btn-default btn-primary " ng-click="search()"> search </button>  
             </div>
+            <div>
+                <p> <b>**About This App** </b></p>
+                Inverted index object that takes a JSON array of text objects and creates an index from the array. 
+                The index allows a user to search for text blocks in the array that contain a specified collection of words.</p>
+            </div>
 
             <div>
-                <p> **NOTE** <br>
+                <p><b> **USAGE**</b> </p>
                     -You can upload one or multiple files<br>
                     -Ensure that your file is of type JSON<br>
                     -After uploading, select a file in the drop-down list to invert<br>
@@ -60,6 +65,9 @@
       </div>  
         <div class = "col-md-7">
             <table class = "col-md-6 table jumbotron table-hover table-responsive ">
+                <thead> 
+                    <th ng-if = "count.length > 0" colspan="3" class="tb-header center-align">{{ 'Showing index for '+filen }}</th>
+                </thead>
                 <thead>
                     <th ng-if= "count.length > 0"> Term </th>
                     <th ng-repeat = "key in count">{{ 'Doc' + key }}</th>      

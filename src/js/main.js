@@ -10,21 +10,19 @@ app.controller('appCtrl', ['$scope', 'ModalService', ($scope, ModalService) => {
         Object.keys($scope.files).forEach((file, index) => {
           const filename = $scope.files[index].name;
           const reader = new FileReader();
-          console.log(reader);
           reader.onload = (e) => {
             let fileContent = e.target.result;
             try {
               fileContent = JSON.parse(fileContent);
               $scope.verifyFile(fileContent);
               if ($scope.valid) {
-                $scope.fileNames.push(filename);
                 $scope.displayDiv();
                 $scope.invertedIndex.allBooks = $scope.invertedIndex.allBooks.concat(fileContent);
                 $scope.invertedIndex.createIndex($scope.invertedIndex.allBooks);
                 $scope.invertedIndex.createIndex(fileContent, filename);
-                // document.getElementById('err').innerHTML = 'File (s) Uploaded Successfully';
-                // $scope.message = 'File uploaded Successfully';
-                // $scope.showModal();
+                $scope.$apply((scope) => {
+                  scope.fileNames.push(filename);
+                });
               }
               document.getElementById('upload').value = null;
             } catch (err) {

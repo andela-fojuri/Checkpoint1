@@ -15,12 +15,6 @@ gulp.task('browserSync', () => {
   });
 });
 
-gulp.task('bundle-files', () => {
-  gulp.src('./src/inverted-index.js')
-    .pipe(browserify({}))
-    .pipe(gulp.dest('./src/build'));
-});
-
 gulp.task('test', () => {
   gulp.src('./jasmine/spec/inverted-index-test.js')
     .pipe(browserify({ watch: true }))
@@ -35,15 +29,6 @@ gulp.task('jasmine', () => {
     .pipe(jasmineBrowser.specRunner())
     .pipe(jasmineBrowser.server({ port: 8888 }));
 });
-
-gulp.task('testJasmine', ['test', 'jasmine']);
-
-gulp.task('tt', ['test'], () => {
-  gulp.watch('./jasmine/spec/inverted-index-test.js', ['test'],
-  browserSync.reload);
-});
-
-
 
 gulp.task('sass', () => gulp.src('src/scss/**/*.scss')
   .pipe(sass()) // Using gulp-sass
@@ -60,4 +45,4 @@ gulp.task('watch', ['browserSync', 'sass'], () => {
   gulp.watch(filesForTest, browserSync.reload);
 });
 
-gulp.task('default', ['test', 'jasmine']);
+gulp.task('default', ['watch', 'test']);

@@ -100,7 +100,7 @@ class Index {
     sortedKeys.forEach((key) => {
       sortedObject[key] = obj[key];
     });
-    return (sortedObject);
+    return sortedObject;
   }
   /**
  * A method to remove duplicate words in an array

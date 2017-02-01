@@ -22,16 +22,12 @@ index = new Index();
 describe('Inverted index test Suite: ', () => {
   describe('Read book data', () => {
     it('should return "File empty" for upload with no data ', () => {
-      expect(index.verify(empty)).toEqual('File empty');
+      expect(index.createIndex(empty, 'empty.json')).toEqual('File empty');
     });
     it('should return "Not a JSON file" for upload of a file other than JSON ',
     () => {
-      expect(index.verify(wrongFile)).toEqual('Not a JSON file');
+      expect(index.createIndex(wrongFile, 'wrongFile.txt')).toEqual('Not a JSON file');
     });
-    it('should return "Not a JSON file" for upload of a file other than JSON ',
-     () => {
-       expect(index.verify(validFile)).toEqual('valid');
-     });
   });
   describe('Populate Index', () => {
     it('verifies that the index is created once the JSON file has been read ',
@@ -52,6 +48,9 @@ describe('Inverted index test Suite: ', () => {
     });
     it('Ensure searchIndex can handle an array of search terms ', () => {
       expect(index.search('books.json', 'and', ['alice', 'a'])).toEqual({ and: [0, 1], alice: [0], a: [0, 1] });
+    });
+    it('Search through all files if no name is included ', () => {
+      expect(index.search('and', ['alice', 'a'])).toEqual({ and: [0, 1], alice: [0], a: [0, 1] });
     });
   });
 });
@@ -78,6 +77,7 @@ class Index {
   constructor() {
     this.index = {};
     this.allBooks = [];
+    this.all = [];
     this.docNum = {};
     this.documentTitle = {};
   }
@@ -96,13 +96,20 @@ class Index {
   * @return {Object} Returns an Object of the search result.
  */
   search(filename, ...term) {
-    const name = filename.replace(/\.json|\.|\s/g, '');
-    term = term.toString().toLowerCase().match(/\w+/g);
+    if (!filename.includes('json')) {
+      term.push(filename);
+      Object.keys(this.index).forEach((key) => {
+        filename = key;
+      });
+    } else {
+      filename = filename.replace(/\.json|\.|\s/g, '');
+    }
+    term = term.toString().toLowerCase().match(/\w+/g); 
     const result = {};
     term.forEach((word) => {
-      Object.keys(this.index[name]).forEach((key) => {
+      Object.keys(this.index[filename]).forEach((key) => {
         if (word === key) {
-          result[key] = this.index[name][key];
+          result[key] = this.index[filename][key];
         }
       });
     });
@@ -115,6 +122,17 @@ class Index {
   * @return {Object} Returns an Object containing the created Index.
  */
   createIndex(file, filename) {
+    if (file.length === 0) {
+      return 'File empty';
+    }
+    if (JSON.stringify(file[0]) === undefined) {
+      return 'Not a JSON file';
+    }
+    file.forEach((book) => {
+      if (!book.title || !book.text) {
+        return 'Your books must be an object of title and text';
+      }
+    });
     const createdObj = {};
     filename = filename || 'allBooks';
     let splittedText = [];
@@ -140,25 +158,6 @@ class Index {
     this.index[filename] = this.sortObj(createdObj);
     this.documentTitle[filename] = title;
     return this.index[filename];
-  }
-  /**
- * A method to retun a created index
- * @param {string} file is the name of the file to me indexed
-  * @return {string} Returns an Object containing the created Index.
- */
-  verify(file) {
-    if (file.length === 0) {
-      return 'File empty';
-    }
-    if (JSON.stringify(file[0]) === undefined) {
-      return 'Not a JSON file';
-    }
-    file.forEach((book) => {
-      if (!book.title || !book.text) {
-        return 'Your books must be an object of title and text';
-      }
-    });
-    return 'valid';
   }
   /**
  * A method to retun a created index

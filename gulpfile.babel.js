@@ -29,19 +29,19 @@ gulp.task('test', () => {
 });
 
 gulp.task('jasmine', () => {
-  const filesForTest = ['src/*.js', 'spec/*.js'];
+  const filesForTest = ['src/*.js', ',/jasmine/build/build.js'];
   return gulp.src(filesForTest)
     .pipe(watch(filesForTest))
     .pipe(jasmineBrowser.specRunner())
     .pipe(jasmineBrowser.server({ port: 8888 }));
 });
 
-gulp.task('sass', () => {
-  return gulp.src('src/scss/**/*.scss')
+gulp.task('testJasmine', ['test', 'jasmine']);
+
+gulp.task('sass', () => gulp.src('src/scss/**/*.scss')
   .pipe(sass()) // Using gulp-sass
   .pipe(gulp.dest('src/css'))
-  .pipe(browserSync.reload({ stream: true }));
-});
+  .pipe(browserSync.reload({ stream: true })));
 
 
 gulp.task('watch', ['browserSync', 'sass'], () => {
@@ -49,6 +49,7 @@ gulp.task('watch', ['browserSync', 'sass'], () => {
   gulp.watch('src/scss/**/*.scss', ['sass']);
   gulp.watch('src/**/*.html', browserSync.reload);
   gulp.watch('src/**/*.js', browserSync.reload);
+  gulp.watch('jasmine/build/bundle.js', browserSync.reload);
   gulp.watch(filesForTest, browserSync.reload);
 });
 

@@ -31,14 +31,15 @@
     <div class = "row" >
         <div class="col-md-5" id = "i">
             <h2> Choose a file to get started... </h2>  
-            <div class = "row" id = "space">  
+            <div class = "row" id = "space">
+                <div id = "err"> </div>  
                 <div class = "col-md-8"><input type="file" file-model="myFile" id="upload" ng-click="isUploaded = false" accept=".json" multiple/></div>
                 <div class="col-md-4"><button class="btn btn-default btn-primary" ng-click="uploader();">Upload File</button></div>
                 <div id = "book" style="display:none;">
-                    <select class="selectpicker" id = "filename">
+                    <select ng-model="selectedName" id = "filename">
                         <option selected="true" disabled="disabled">Select a File</option>
                         <option value="allBooks">All Books</option>
-                        <option ng-repeat="value in name"> {{value}}</option>
+                        <option  ng-repeat="value in fileNames"> {{value}}</option>
                     </select>
                 </div>
             </div>
@@ -57,30 +58,11 @@
                     -Index can also be created for all files</p>
             </div>
       </div>  
-    <!--<div class = "md-dialog modal-lg">
-            <div>
-            <md-button ng-click="showPrompt()"> Select</md-button>
-        </div>
-            <div class = "md-dialog-content"> 
-              <div class = "md-dialog-actions"> 
-                <div class = "md-button" ng-click="closeDialog()" class="md-primary">
-                 <input type = "file" file-model = "myFile" id = "upload" accept=".json" ng-click="isUploaded = false" multiple/>
-                 <button class="btn btn-default" ng-click = "uploader()">Upload File</button>
-                 
-              </div>
-            </div>
-           </div>
-         </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
-            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
-        </div>-->
         <div class = "col-md-7">
             <table class = "col-md-6 table jumbotron table-hover table-responsive ">
                 <thead>
                     <th ng-if= "count.length > 0"> Term </th>
-                    <th ng-repeat = "key in title">{{ key }}</th>      
+                    <th ng-repeat = "key in count">{{ 'Doc' + key }}</th>      
                 </thead>
 
                 <tr ng-repeat="(key,value) in createdIndex track by $index">

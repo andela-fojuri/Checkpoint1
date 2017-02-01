@@ -8,16 +8,12 @@ index = new Index();
 describe('Inverted index test Suite: ', () => {
   describe('Read book data', () => {
     it('should return "File empty" for upload with no data ', () => {
-      expect(index.verify(empty)).toEqual('File empty');
+      expect(index.createIndex(empty, 'empty.json')).toEqual('File empty');
     });
     it('should return "Not a JSON file" for upload of a file other than JSON ',
     () => {
-      expect(index.verify(wrongFile)).toEqual('Not a JSON file');
+      expect(index.createIndex(wrongFile, 'wrongFile.txt')).toEqual('Not a JSON file');
     });
-    it('should return "Not a JSON file" for upload of a file other than JSON ',
-     () => {
-       expect(index.verify(validFile)).toEqual('valid');
-     });
   });
   describe('Populate Index', () => {
     it('verifies that the index is created once the JSON file has been read ',
@@ -38,6 +34,9 @@ describe('Inverted index test Suite: ', () => {
     });
     it('Ensure searchIndex can handle an array of search terms ', () => {
       expect(index.search('books.json', 'and', ['alice', 'a'])).toEqual({ and: [0, 1], alice: [0], a: [0, 1] });
+    });
+    it('Search through all files if no name is included ', () => {
+      expect(index.search('and', ['alice', 'a'])).toEqual({ and: [0, 1], alice: [0], a: [0, 1] });
     });
   });
 });

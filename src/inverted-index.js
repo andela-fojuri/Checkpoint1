@@ -11,8 +11,8 @@ class Index {
   constructor() {
     this.index = {};
     this.allBooks = [];
+    this.all = [];
     this.docNum = {};
-    this.documentTitle = {};
   }
 /**
  * A method that retuns a created index
@@ -29,13 +29,20 @@ class Index {
   * @return {Object} Returns an Object of the search result.
  */
   search(filename, ...term) {
-    const name = filename.replace(/\.json|\.|\s/g, '');
-    term = term.toString().toLowerCase().match(/\w+/g);
+    if (!filename.includes('json')) {
+      term.push(filename);
+      Object.keys(this.index).forEach((key) => {
+        filename = key;
+      });
+    } else {
+      filename = filename.replace(/\.json|\.|\s/g, '');
+    }
+    term = term.toString().toLowerCase().match(/\w+/g); 
     const result = {};
     term.forEach((word) => {
-      Object.keys(this.index[name]).forEach((key) => {
+      Object.keys(this.index[filename]).forEach((key) => {
         if (word === key) {
-          result[key] = this.index[name][key];
+          result[key] = this.index[filename][key];
         }
       });
     });
@@ -48,14 +55,23 @@ class Index {
   * @return {Object} Returns an Object containing the created Index.
  */
   createIndex(file, filename) {
+    if (file.length === 0) {
+      return 'File empty';
+    }
+    if (JSON.stringify(file[0]) === undefined) {
+      return 'Not a JSON file';
+    }
+    file.forEach((book) => {
+      if (!book.title || !book.text) {
+        return 'Your books must be an object of title and text';
+      }
+    });
     const createdObj = {};
     filename = filename || 'allBooks';
     let splittedText = [];
-    const title = [];
     const count = [];
     file.forEach((document, index) => {
-      count.push(index);
-      title.push(document.title);
+      count.push(index + 1);
       splittedText = document.text.toLowerCase().match(/\w+/g);
       splittedText = this.removeDuplicates(splittedText);
       splittedText.forEach((word) => {
@@ -71,27 +87,7 @@ class Index {
     filename = filename.replace(/\.json|\.|\s/g, '');
     this.docNum[filename] = count;
     this.index[filename] = this.sortObj(createdObj);
-    this.documentTitle[filename] = title;
     return this.index[filename];
-  }
-  /**
- * A method to retun a created index
- * @param {string} file is the name of the file to me indexed
-  * @return {string} Returns an Object containing the created Index.
- */
-  verify(file) {
-    if (file.length === 0) {
-      return 'File empty';
-    }
-    if (JSON.stringify(file[0]) === undefined) {
-      return 'Not a JSON file';
-    }
-    file.forEach((book) => {
-      if (!book.title || !book.text) {
-        return 'Your books must be an object of title and text';
-      }
-    });
-    return 'valid';
   }
   /**
  * A method to retun a created index

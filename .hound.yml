@@ -1,2 +1,3 @@
-jshint:
-  config_file: package.json
+eslint:
+  enabled: true
+  config_file: .eslintrc.json

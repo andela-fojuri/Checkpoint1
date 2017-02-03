@@ -41,7 +41,6 @@ class Index {
     } else {
       filename = filename.replace(/\.json|\.|\s/g, '');
       terms = terms.toString().toLowerCase().match(/\w+/g);
-
       terms.forEach((word) => {
         Object.keys(this.index[filename]).forEach((key) => {
           if (word === key) {
@@ -143,8 +142,8 @@ class Index {
  * verify
  *
  * A method to verify  a valid file
- * @param {array} fileContent the array to remove duplicate words from
- * @return {String} Returns the status of the file.
+ * @param {array} fileContent the file to be verified
+ * @return {String} Returns the result of verification.
  */
   verify(fileContent) {
     if (fileContent.length === 0) {

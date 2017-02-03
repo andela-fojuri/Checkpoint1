@@ -1,4 +1,3 @@
-// import Index from '../../src/inverted-index';
 
 const empty = require('../testFiles/empty.json');
 const validFile = require('../books.json');

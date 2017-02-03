@@ -1,3 +1,4 @@
+
 const app = angular.module('myApp', ['ngMessages', 'angularModalService']);
 
 app.controller('appCtrl', ['$scope', 'ModalService', ($scope, ModalService) => {
@@ -18,8 +19,8 @@ app.controller('appCtrl', ['$scope', 'ModalService', ($scope, ModalService) => {
               if ($scope.valid) {
                 $scope.displayDiv();
                 $scope.invertedIndex.allBooks = $scope.invertedIndex.allBooks.concat(fileContent);
-                $scope.invertedIndex.createIndex($scope.invertedIndex.allBooks);
-                $scope.invertedIndex.createIndex(fileContent, filename);
+                $scope.invertedIndex.createIndex('allBooks', $scope.invertedIndex.allBooks);
+                $scope.invertedIndex.createIndex(filename, fileContent);
                 $scope.$apply((scope) => {
                   scope.fileNames.push(filename);
                 });

@@ -3,7 +3,7 @@ body {
 }
 
 header > md-content {
-  background: black;
+  background:#000000;
 }
 
 label {
@@ -11,31 +11,31 @@ label {
 }
 
 #i {
-  border: 1px solid black;
-  background-color: lightgray;
+  border: 1px solid #000000;
+  background-color: #d3d3d3;
   padding-top: 30px;
   padding-right: 15px;
   padding-bottom: 50px;
   padding-left: 50px;
-  height: 100%  
+  height: 100%;
 }
 
 #space {
   margin-bottom: 10px;
-  border: 1px solid black;
-  background-color: lightgray;
+  border: 1px solid #000000;
+  background-color:#d3d3d3;
   padding-top: 30px;
   padding-right: 10px;
   padding-bottom: 20px;
-  padding-left: 20px;     
+  padding-left: 20px;
 }
 
 #crt {
   margin-bottom: 10px;
-  border: 1px solid black;
-  background-color: lightgray;
+  border: 1px solid #000000;
+  background-color:#d3d3d3;
   padding-top: 30px;
   padding-right: 10px;
   padding-bottom: 20px;
-  padding-left: 20px;   
+  padding-left: 20px;
 }

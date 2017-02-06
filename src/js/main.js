@@ -1,6 +1,4 @@
-
 const app = angular.module('myApp', ['ngMessages', 'angularModalService']);
-
 app.controller('appCtrl', ['$scope', 'ModalService', ($scope, ModalService) => {
   $scope.fileNames = [];
   $scope.invertedIndex = new Index();
@@ -18,8 +16,10 @@ app.controller('appCtrl', ['$scope', 'ModalService', ($scope, ModalService) => {
               $scope.verifyFile(fileContent);
               if ($scope.valid) {
                 $scope.displayDiv();
-                $scope.invertedIndex.allBooks = $scope.invertedIndex.allBooks.concat(fileContent);
-                $scope.invertedIndex.createIndex('allBooks', $scope.invertedIndex.allBooks);
+                $scope.invertedIndex.allBooks = $scope.invertedIndex.allBooks
+                .concat(fileContent);
+                $scope.invertedIndex.createIndex('allBooks',
+                 $scope.invertedIndex.allBooks);
                 $scope.invertedIndex.createIndex(filename, fileContent);
                 $scope.$apply((scope) => {
                   scope.fileNames.push(filename);
@@ -27,7 +27,8 @@ app.controller('appCtrl', ['$scope', 'ModalService', ($scope, ModalService) => {
               }
               document.getElementById('upload').value = null;
             } catch (err) {
-              $scope.message = 'File type not Supported;Upload only a JSON file';
+              $scope.message =
+              'File type not Supported;Upload only a JSON file';
               $scope.showModal();
             }
           };
@@ -49,7 +50,8 @@ app.controller('appCtrl', ['$scope', 'ModalService', ($scope, ModalService) => {
     filen = filen.replace(/\.json|\.|\s/g, '');
     $scope.createdIndex = $scope.invertedIndex.getIndex(filen);
     if (!$scope.createdIndex) {
-      $scope.message = 'You have not selected any file, Kindly select a file to proceed';
+      $scope.message =
+      'You have not selected any file,Kindly select a file to proceed';
       $scope.showModal();
     }
     $scope.count = $scope.invertedIndex.docNum[filen];

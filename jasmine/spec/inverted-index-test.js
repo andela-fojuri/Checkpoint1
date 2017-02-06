@@ -1,9 +1,7 @@
-
 const empty = require('../testFiles/empty.json');
 const validFile = require('../books.json');
 const wrongFile = require('../testFiles/wrongFile.txt');
 let index = require('../../src/inverted-index.js');
-
 
 index = new Index();
 

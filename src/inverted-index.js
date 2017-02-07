@@ -26,59 +26,47 @@ class Index {
 
 /**
  * Search
- *
  * A method that searches for words in an index
- *
  * @param {string} filename is the name of the file to be searched
  * @param {string} term is what to search for
  * @return {Object} Returns an Object of the search result.
  */
   search(filename, ...terms) {
     let result = {};
+    terms = terms.toString().toLowerCase().match(/\w+/g);
     if (!filename.includes('json')) {
       terms.push(filename);
-      result = this.searchAll(terms);
+      Object.keys(this.index).forEach((file) => {
+        result = this.callSearch(file, terms);
+      });
     } else {
       filename = filename.replace(/\.json|\.|\s/g, '');
-      terms = terms.toString().toLowerCase().match(/\w+/g);
-      terms.forEach((word) => {
-        Object.keys(this.index[filename]).forEach((key) => {
-          if (word === key) {
-            result[key] = this.index[filename][key];
-          }
-        });
-      });
+      result = this.callSearch(filename, terms);
     }
     return result;
   }
 
 /**
- *
- * searchAll
- *
+ * callSearch
  * A method that searches for terms in all indexed files
+ * @param {string} filename is the name of the file to be searched
  * @param {Array} terms is the array of terms to search for
  * @return {Object} Returns an Object of the search result.
  */
-  searchAll(terms) {
+  callSearch(filename, terms) {
     const result = {};
-    terms = terms.toString().toLowerCase().match(/\w+/g);
-    Object.keys(this.index).forEach((filename) => {
-      terms.forEach((term) => {
-        Object.keys(this.index[filename]).forEach((key) => {
-          if (term === key) {
-            result[key] = this.index[filename][key];
-          }
-        });
+    terms.forEach((term) => {
+      Object.keys(this.index[filename]).forEach((key) => {
+        if (term === key) {
+          result[key] = this.index[filename][key];
+        }
       });
     });
     return result;
   }
 
 /**
- *
  * createIndex
- *
  * A method to retun a created index
  * @param {string} filename is the name of the file to me indexed
  * @param {string} fileContent is the content of the file to be indexed
@@ -98,7 +86,7 @@ class Index {
       splittedWord = this.removeDuplicates(splittedWord);
       splittedWord.forEach((word) => {
         if (createdObj[word] === undefined) {
-          createdObj[word] = Array.from(new Array([]), () => index);
+          createdObj[word] = Array.from(new Array([index]));
         } else {
           createdObj[word].push(index);
         }
@@ -111,9 +99,7 @@ class Index {
   }
 
 /**
- *
  * sortObj
- *
  * A method to sort an Object by Key
  * @param {Object} obj  isthe Object to Sorted
  * @return {Object} Returns the Sorted Object.
@@ -129,18 +115,16 @@ class Index {
 
 /**
  * removeDuplicates
- *
  * A method to remove duplicate words in an array
- * @param {array} arr the array to remove duplicate words from
+ * @param {array} array the array to remove duplicate words from
  * @return {array} Returns an array with no duplicate words.
  */
-  removeDuplicates(arr) {
-    return arr.filter((word, index) => arr.indexOf(word) === index);
+  removeDuplicates(array) {
+    return array.filter((word, index) => array.indexOf(word) === index);
   }
 
 /**
  * verify
- *
  * A method to verify  a valid file
  * @param {array} fileContent the file to be verified
  * @return {String} Returns the result of verification.
@@ -154,7 +138,7 @@ class Index {
     }
     fileContent.forEach((book) => {
       if (!book.title || !book.text) {
-        return 'Your books must be an object of title and text';
+        return 'Your book must be an object that contains title and text';
       }
     });
   }

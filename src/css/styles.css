@@ -1,15 +1,15 @@
 body {
-  background: white; }
+  background: #ffffff; }
 
 header > md-content {
-  background: black; }
+  background: #000000; }
 
 label {
-  color: grey; }
+  color: #808080; }
 
 #i {
-  border: 1px solid black;
-  background-color: lightgray;
+  border: 1px solid #000000;
+  background-color: #d3d3d3;
   padding-top: 30px;
   padding-right: 15px;
   padding-bottom: 50px;
@@ -18,8 +18,8 @@ label {
 
 #space {
   margin-bottom: 10px;
-  border: 1px solid black;
-  background-color: lightgray;
+  border: 1px solid #000000;
+  background-color: #d3d3d3;
   padding-top: 30px;
   padding-right: 10px;
   padding-bottom: 20px;
@@ -27,8 +27,8 @@ label {
 
 #crt {
   margin-bottom: 10px;
-  border: 1px solid black;
-  background-color: lightgray;
+  border: 1px solid #000000;
+  background-color: #d3d3d3;
   padding-top: 30px;
   padding-right: 10px;
   padding-bottom: 20px;

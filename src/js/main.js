@@ -1,5 +1,4 @@
 const app = angular.module('myApp', ['ngMessages', 'angularModalService']);
-
 app.controller('appCtrl', ['$scope', 'ModalService', ($scope, ModalService) => {
   $scope.fileNames = [];
   $scope.invertedIndex = new Index();
@@ -17,16 +16,19 @@ app.controller('appCtrl', ['$scope', 'ModalService', ($scope, ModalService) => {
               $scope.verifyFile(fileContent);
               if ($scope.valid) {
                 $scope.displayDiv();
-                $scope.invertedIndex.allBooks = $scope.invertedIndex.allBooks.concat(fileContent);
-                $scope.invertedIndex.createIndex($scope.invertedIndex.allBooks);
-                $scope.invertedIndex.createIndex(fileContent, filename);
+                $scope.invertedIndex.allBooks = $scope.invertedIndex.allBooks
+                .concat(fileContent);
+                $scope.invertedIndex.createIndex('allBooks',
+                $scope.invertedIndex.allBooks);
+                $scope.invertedIndex.createIndex(filename, fileContent);
                 $scope.$apply((scope) => {
                   scope.fileNames.push(filename);
                 });
               }
               document.getElementById('upload').value = null;
             } catch (err) {
-              $scope.message = 'File type not Supported;Upload only a JSON file';
+              $scope.message =
+              'File type not Supported;Upload only a JSON file';
               $scope.showModal();
             }
           };
@@ -43,25 +45,26 @@ app.controller('appCtrl', ['$scope', 'ModalService', ($scope, ModalService) => {
   };
   $scope.create = () => {
     $scope.e = document.getElementById('filename');
-    let filen = $scope.e.options[$scope.e.selectedIndex].value;
-    $scope.filen = filen;
-    filen = filen.replace(/\.json|\.|\s/g, '');
-    $scope.createdIndex = $scope.invertedIndex.getIndex(filen);
+    let filename = $scope.e.options[$scope.e.selectedIndex].value;
+    $scope.filen = filename;
+    filename = filename.replace(/\.json|\.|\s/g, '');
+    $scope.createdIndex = $scope.invertedIndex.getIndex(filename);
     if (!$scope.createdIndex) {
-      $scope.message = 'You have not selected any file, Kindly select a file to proceed';
+      $scope.message =
+      'You have not selected any file,Kindly select a file to proceed';
       $scope.showModal();
     }
-    $scope.count = $scope.invertedIndex.docNum[filen];
+    $scope.count = $scope.invertedIndex.docNum[filename];
   };
   $scope.search = () => {
     $scope.e = document.getElementById('filename');
-    const filen = $scope.e.options[$scope.e.selectedIndex].value;
+    const filename = $scope.e.options[$scope.e.selectedIndex].value;
     $scope.term = document.getElementById('term').value;
     if ($scope.term === '') {
       $scope.message = 'Kindly enter a term to search';
       $scope.showModal();
     } else {
-      $scope.createdIndex = $scope.invertedIndex.search(filen, $scope.term);
+      $scope.createdIndex = $scope.invertedIndex.search(filename, $scope.term);
     }
   };
   $scope.displayDiv = () => {

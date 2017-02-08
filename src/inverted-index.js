@@ -21,7 +21,7 @@ class Index {
  * @return {Object} Returns an Object containing the created Index.
  */
   getIndex(filename) {
-    return this.index[filename];
+    return (filename === undefined) ? this.index : this.index[filename];
   }
 
 /**
@@ -86,7 +86,7 @@ class Index {
       splittedWord = this.removeDuplicates(splittedWord);
       splittedWord.forEach((word) => {
         if (createdObj[word] === undefined) {
-          createdObj[word] = Array.from(new Array([index]));
+          createdObj[word] = [index];
         } else {
           createdObj[word].push(index);
         }
